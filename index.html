@@ -158,7 +158,7 @@ tbody tr:hover td{background:#f8fafc}
       <div class="chart-title" style="margin-bottom:14px">Detalle de hallazgos</div>
       <div class="table-scroll">
         <table>
-          <thead><tr><th>Fecha</th><th>Turno</th><th>Área</th><th>Tipo</th><th>Categoría</th><th>Riesgo</th><th>Observador</th></tr></thead>
+          <thead><tr><th>Fecha</th><th>Turno</th><th>Área</th><th>Tipo</th><th>Categoría</th><th>Riesgo</th><th>Observador</th><th>Descripción del hallazgo</th></tr></thead>
           <tbody id="tablaBody"><tr><td colspan="7"><div class="state-box"><div class="spinner"></div>Cargando...</div></td></tr></tbody>
         </table>
       </div>
@@ -196,13 +196,13 @@ tbody tr:hover td{background:#f8fafc}
 
   function mostrarCargando(){
     var tb=g('tablaBody');
-    if(tb) tb.innerHTML='<tr><td colspan="7"><div class="state-box"><div class="spinner"></div>Conectando...</div></td></tr>';
+    if(tb) tb.innerHTML='<tr><td colspan="8"><div class="state-box"><div class="spinner"></div>Conectando...</div></td></tr>';
     ['kpiTotal','kpiSeguros','kpiInseguros','kpiGrave','kpiTrabajadores'].forEach(function(id){ setText(id,'—'); });
   }
 
   function mostrarError(msg){
     var tb=g('tablaBody');
-    if(tb) tb.innerHTML='<tr><td colspan="7"><div class="state-box"><div class="error-msg">⚠️ '+msg+'</div></div></td></tr>';
+    if(tb) tb.innerHTML='<tr><td colspan="8"><div class="state-box"><div class="error-msg">⚠️ '+msg+'</div></div></td></tr>';
   }
 
   function parsearCSV(csv){
@@ -275,7 +275,7 @@ tbody tr:hover td{background:#f8fafc}
 
   function renderTabla(datos){
     var tb=g('tablaBody'); if(!tb) return;
-    if(!datos.length){tb.innerHTML='<tr><td colspan="7"><div class="state-box">Sin registros para los filtros seleccionados.</div></td></tr>';return;}
+    if(!datos.length){tb.innerHTML='<tr><td colspan="8"><div class="state-box">Sin registros para los filtros seleccionados.</div></td></tr>';return;}
     tb.innerHTML=datos.slice().reverse().map(function(r){
       var tipo=r[C.tipo]||'',riesgo=r[C.riesgo]||'',cat=r[C.categoria]||inferirCat(r);
       var tb2=tipo==='Acto seguro'?'<span class="badge badge-seguro">Acto seguro</span>':'<span class="badge badge-inseguro">Acto inseguro</span>';
@@ -285,7 +285,8 @@ tbody tr:hover td{background:#f8fafc}
       else if(riesgo.indexOf('Leve')!==-1) rb='<span class="badge badge-leve">Leve</span>';
       return'<tr><td style="font-size:11px">'+(r[C.fecha]||'')+'</td><td>'+(r[C.turno]||'—')+'</td>'+
         '<td>'+(r[C.area]||'—')+'</td><td>'+tb2+'</td><td>'+cat+'</td><td>'+rb+'</td>'+
-        '<td>'+(r[C.observador]||'—')+'</td></tr>';
+        '<td>'+(r[C.observador]||'—')+'</td>'+
+        '<td style="font-size:11px;color:#64748b;max-width:200px">'+(r[C.descripcion]||'—')+'</td></tr>';
     }).join('');
   }
 
@@ -306,12 +307,56 @@ tbody tr:hover td{background:#f8fafc}
     renderDona('chartTipo','legendTipo',['Acto seguro','Acto inseguro'],[seg,inseg],['#16a34a','#dc2626']);
     var robj=contarPor(datos,C.riesgo),rk=Object.keys(robj);
     renderDona('chartRiesgo','legendRiesgo',rk,rk.map(function(k){return robj[k];}),
-      rk.map(function(k){return k.indexOf('Grave')!==-1?'#dc2626':k.indexOf('Moderado')!==-1?'#d97706':'#16a34a';}));
+      rk.map(function(k){
+        var kl=k.toLowerCase();
+        if(kl.indexOf('grave')!==-1)  return '#dc2626'; // rojo
+        if(kl.indexOf('medio')!==-1 || kl.indexOf('moderado')!==-1) return '#d97706'; // amarillo
+        if(kl.indexOf('leve')!==-1)   return '#16a34a'; // verde
+        return '#94a3b8'; // gris para "No aplica" y otros
+      }));
     renderBars('barArea',contarPor(datos,C.area),'#2563eb');
     var cat={};
     datos.forEach(function(r){var c=r[C.categoria]||inferirCat(r);cat[c]=(cat[c]||0)+1;});
     renderBars('barCategoria',cat,'#3b82f6');
-    renderBars('barColaborador',contarPor(datos,C.colaborador),'#dc2626');
+    // Colaboradores: contar actos inseguros y seguros por persona
+    var colabData = {};
+    datos.forEach(function(r){
+      var nombre = r[C.colaborador];
+      var tipo   = r[C.tipo] || '';
+      if(!nombre || !nombre.trim()) return;
+      // Normalizar nombre (trim y lowercase para comparar)
+      var key = nombre.trim();
+      if(!colabData[key]) colabData[key] = {inseguros:0, seguros:0};
+      if(tipo === 'Acto inseguro') colabData[key].inseguros++;
+      else if(tipo === 'Acto seguro') colabData[key].seguros++;
+    });
+    // Ordenar por actos inseguros desc
+    var colabKeys = Object.keys(colabData).sort(function(a,b){
+      return colabData[b].inseguros - colabData[a].inseguros;
+    });
+    var elColab = g('barColaborador');
+    if(elColab){
+      elColab.innerHTML = colabKeys.map(function(nombre){
+        var d = colabData[nombre];
+        var total = d.inseguros + d.seguros;
+        var pctInseg = total ? Math.round(d.inseguros/total*100) : 0;
+        var pctSeg   = total ? Math.round(d.seguros/total*100)   : 0;
+        return '<div class="bar-item" style="flex-direction:column;align-items:flex-start;gap:3px;margin-bottom:6px">'+
+          '<div style="display:flex;justify-content:space-between;width:100%;font-size:11px;color:#64748b">'+
+            '<span>'+nombre+'</span>'+
+            '<span style="font-family:DM Mono,monospace">'+
+              (d.inseguros ? '<span style="color:#dc2626">'+d.inseguros+' inseg.</span>' : '')+
+              (d.inseguros && d.seguros ? ' · ' : '')+
+              (d.seguros ? '<span style="color:#16a34a">'+d.seguros+' seg.</span>' : '')+
+            '</span>'+
+          '</div>'+
+          '<div style="width:100%;height:10px;border-radius:3px;overflow:hidden;display:flex">'+
+            (d.inseguros ? '<div style="width:'+pctInseg+'%;background:#dc2626;height:100%"></div>' : '')+
+            (d.seguros   ? '<div style="width:'+pctSeg+'%;background:#16a34a;height:100%"></div>'   : '')+
+          '</div>'+
+        '</div>';
+      }).join('') || '<div style="color:#94a3b8;font-size:12px;padding:8px">Sin datos</div>';
+    }
     var tobj=contarPor(datos,C.turno);
     renderBarChart('chartTurno',Object.keys(tobj),Object.keys(tobj).map(function(k){return tobj[k];}));
     renderTabla(datos);
