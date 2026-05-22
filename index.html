@@ -95,6 +95,7 @@ tbody tr:hover td{background:#f8fafc}
     <option value="Acto inseguro">Solo actos inseguros</option>
     <option value="Acto seguro">Solo actos seguros</option>
   </select>
+  <select id="filtroFecha" onchange="aplicarFiltros()"><option value="">Todas las fechas</option></select>
   <div class="filter-spacer"></div>
   <span class="total-badge" id="totalBadge">0 registros</span>
 </div>
@@ -158,7 +159,7 @@ tbody tr:hover td{background:#f8fafc}
       <div class="chart-title" style="margin-bottom:14px">Detalle de hallazgos</div>
       <div class="table-scroll">
         <table>
-          <thead><tr><th>Fecha</th><th>Turno</th><th>Área</th><th>Tipo</th><th>Categoría</th><th>Riesgo</th><th>Observador</th><th>Descripción del hallazgo</th></tr></thead>
+          <thead><tr><th>Fecha</th><th>Turno</th><th>Área</th><th>Tipo</th><th>Categoría</th><th>Riesgo</th><th>Observador</th><th>Colaborador</th><th>Descripción del hallazgo</th></tr></thead>
           <tbody id="tablaBody"><tr><td colspan="7"><div class="state-box"><div class="spinner"></div>Cargando...</div></td></tr></tbody>
         </table>
       </div>
@@ -196,13 +197,13 @@ tbody tr:hover td{background:#f8fafc}
 
   function mostrarCargando(){
     var tb=g('tablaBody');
-    if(tb) tb.innerHTML='<tr><td colspan="8"><div class="state-box"><div class="spinner"></div>Conectando...</div></td></tr>';
+    if(tb) tb.innerHTML='<tr><td colspan="9"><div class="state-box"><div class="spinner"></div>Conectando...</div></td></tr>';
     ['kpiTotal','kpiSeguros','kpiInseguros','kpiGrave','kpiTrabajadores'].forEach(function(id){ setText(id,'—'); });
   }
 
   function mostrarError(msg){
     var tb=g('tablaBody');
-    if(tb) tb.innerHTML='<tr><td colspan="8"><div class="state-box"><div class="error-msg">⚠️ '+msg+'</div></div></td></tr>';
+    if(tb) tb.innerHTML='<tr><td colspan="9"><div class="state-box"><div class="error-msg">⚠️ '+msg+'</div></div></td></tr>';
   }
 
   function parsearCSV(csv){
@@ -226,15 +227,20 @@ tbody tr:hover td{background:#f8fafc}
       if(r[C.turno]&&turnos.indexOf(r[C.turno])===-1) turnos.push(r[C.turno]);
       if(r[C.area] &&areas.indexOf(r[C.area])===-1)   areas.push(r[C.area]);
     });
-    var ft=g('filtroTurno'), fa=g('filtroArea');
+    var fechas=[];
+    datos.forEach(function(r){
+      if(r[C.fecha]&&fechas.indexOf(r[C.fecha])===-1) fechas.push(r[C.fecha]);
+    });
+    var ft=g('filtroTurno'), fa=g('filtroArea'), ff=g('filtroFecha');
     if(ft) ft.innerHTML='<option value="">Todos los turnos</option>'+turnos.sort().map(function(t){return'<option>'+t+'</option>';}).join('');
     if(fa) fa.innerHTML='<option value="">Todas las áreas</option>' +areas.sort().map(function(a){return'<option>'+a+'</option>';}).join('');
+    if(ff) ff.innerHTML='<option value="">Todas las fechas</option>'+fechas.sort().reverse().map(function(f){return'<option>'+f+'</option>';}).join('');
   }
 
   function aplicarFiltros(){
-    var t=g('filtroTurno').value, a=g('filtroArea').value, tp=g('filtroTipo').value;
+    var t=g('filtroTurno').value, a=g('filtroArea').value, tp=g('filtroTipo').value, fe=g('filtroFecha').value;
     datosFilt=datosOrig.filter(function(r){
-      return(!t||r[C.turno]===t)&&(!a||r[C.area]===a)&&(!tp||r[C.tipo]===tp);
+      return(!t||r[C.turno]===t)&&(!a||r[C.area]===a)&&(!tp||r[C.tipo]===tp)&&(!fe||r[C.fecha]===fe);
     });
     renderizar(datosFilt);
   }
@@ -275,7 +281,7 @@ tbody tr:hover td{background:#f8fafc}
 
   function renderTabla(datos){
     var tb=g('tablaBody'); if(!tb) return;
-    if(!datos.length){tb.innerHTML='<tr><td colspan="8"><div class="state-box">Sin registros para los filtros seleccionados.</div></td></tr>';return;}
+    if(!datos.length){tb.innerHTML='<tr><td colspan="9"><div class="state-box">Sin registros para los filtros seleccionados.</div></td></tr>';return;}
     tb.innerHTML=datos.slice().reverse().map(function(r){
       var tipo=r[C.tipo]||'',riesgo=r[C.riesgo]||'',cat=r[C.categoria]||inferirCat(r);
       var tb2=tipo==='Acto seguro'?'<span class="badge badge-seguro">Acto seguro</span>':'<span class="badge badge-inseguro">Acto inseguro</span>';
@@ -286,6 +292,7 @@ tbody tr:hover td{background:#f8fafc}
       return'<tr><td style="font-size:11px">'+(r[C.fecha]||'')+'</td><td>'+(r[C.turno]||'—')+'</td>'+
         '<td>'+(r[C.area]||'—')+'</td><td>'+tb2+'</td><td>'+cat+'</td><td>'+rb+'</td>'+
         '<td>'+(r[C.observador]||'—')+'</td>'+
+        '<td>'+(r[C.colaborador]||'—')+'</td>'+
         '<td style="font-size:11px;color:#64748b;max-width:200px">'+(r[C.descripcion]||'—')+'</td></tr>';
     }).join('');
   }
