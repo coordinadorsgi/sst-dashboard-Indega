@@ -95,7 +95,13 @@ tbody tr:hover td{background:#f8fafc}
     <option value="Acto inseguro">Solo actos inseguros</option>
     <option value="Acto seguro">Solo actos seguros</option>
   </select>
-  <select id="filtroFecha" onchange="aplicarFiltros()"><option value="">Todas las fechas</option></select>
+  <div style="display:flex;align-items:center;gap:6px">
+    <label style="font-size:12px;color:#64748b;font-weight:500">Desde</label>
+    <input type="date" id="filtroDesde" onchange="aplicarFiltros()" style="padding:6px 10px;border:1px solid rgba(0,0,0,.07);border-radius:8px;font-size:12px;background:#fff;color:#0f1923;font-family:DM Sans,sans-serif;cursor:pointer">
+    <label style="font-size:12px;color:#64748b;font-weight:500">Hasta</label>
+    <input type="date" id="filtroHasta" onchange="aplicarFiltros()" style="padding:6px 10px;border:1px solid rgba(0,0,0,.07);border-radius:8px;font-size:12px;background:#fff;color:#0f1923;font-family:DM Sans,sans-serif;cursor:pointer">
+    <button onclick="limpiarFechas()" style="padding:5px 10px;border:1px solid rgba(0,0,0,.07);border-radius:8px;font-size:11px;background:#fff;color:#64748b;cursor:pointer;font-family:DM Sans,sans-serif">✕ Limpiar</button>
+  </div>
   <div class="filter-spacer"></div>
   <span class="total-badge" id="totalBadge">0 registros</span>
 </div>
@@ -227,20 +233,34 @@ tbody tr:hover td{background:#f8fafc}
       if(r[C.turno]&&turnos.indexOf(r[C.turno])===-1) turnos.push(r[C.turno]);
       if(r[C.area] &&areas.indexOf(r[C.area])===-1)   areas.push(r[C.area]);
     });
-    var fechas=[];
-    datos.forEach(function(r){
-      if(r[C.fecha]&&fechas.indexOf(r[C.fecha])===-1) fechas.push(r[C.fecha]);
-    });
-    var ft=g('filtroTurno'), fa=g('filtroArea'), ff=g('filtroFecha');
+    var ft=g('filtroTurno'), fa=g('filtroArea');
     if(ft) ft.innerHTML='<option value="">Todos los turnos</option>'+turnos.sort().map(function(t){return'<option>'+t+'</option>';}).join('');
     if(fa) fa.innerHTML='<option value="">Todas las áreas</option>' +areas.sort().map(function(a){return'<option>'+a+'</option>';}).join('');
-    if(ff) ff.innerHTML='<option value="">Todas las fechas</option>'+fechas.sort().reverse().map(function(f){return'<option>'+f+'</option>';}).join('');
   }
 
+  function limpiarFechas(){
+    var d=g('filtroDesde'), h=g('filtroHasta');
+    if(d) d.value=''; if(h) h.value='';
+    aplicarFiltros();
+  }
+  window.limpiarFechas = limpiarFechas;
+
   function aplicarFiltros(){
-    var t=g('filtroTurno').value, a=g('filtroArea').value, tp=g('filtroTipo').value, fe=g('filtroFecha').value;
+    var t=g('filtroTurno').value, a=g('filtroArea').value, tp=g('filtroTipo').value;
+    var desde=g('filtroDesde').value, hasta=g('filtroHasta').value;
     datosFilt=datosOrig.filter(function(r){
-      return(!t||r[C.turno]===t)&&(!a||r[C.area]===a)&&(!tp||r[C.tipo]===tp)&&(!fe||r[C.fecha]===fe);
+      // Convertir fecha del registro a formato comparable YYYY-MM-DD
+      var fechaRaw = r[C.fecha]||'';
+      var fechaComp = '';
+      // Intentar parsear formato DD/MM/YYYY o similares
+      var partes = fechaRaw.match(/(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})/);
+      if(partes) fechaComp = partes[3]+'-'+partes[2].padStart(2,'0')+'-'+partes[1].padStart(2,'0');
+      else fechaComp = fechaRaw; // si ya viene en YYYY-MM-DD
+      return (!t  || r[C.turno]===t)  &&
+             (!a  || r[C.area]===a)   &&
+             (!tp || r[C.tipo]===tp)  &&
+             (!desde || fechaComp >= desde) &&
+             (!hasta || fechaComp <= hasta);
     });
     renderizar(datosFilt);
   }
