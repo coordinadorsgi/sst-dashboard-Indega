@@ -2,10 +2,15 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=1100, initial-scale=0.5, minimum-scale=0.1, maximum-scale=3.0">
 <title>Dashboard SST — Siamo</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<script>
+  // Register datalabels plugin only for bar charts that need it
+  // We'll register it selectively per chart
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:#f0f2f5;color:#0f1923;min-height:100vh}
@@ -67,7 +72,17 @@ tbody tr:hover td{background:#f8fafc}
 .spinner{width:28px;height:28px;border:2px solid rgba(0,0,0,.07);border-top-color:#2563eb;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .error-msg{color:#dc2626;background:#fee2e2;border-radius:8px;padding:10px 16px;font-size:12px;text-align:center}
-@media(max-width:1100px){.kpi-grid{grid-template-columns:repeat(3,1fr)}.charts-row{grid-template-columns:1fr 1fr}.bottom-row{grid-template-columns:1fr}}
+@media(max-width:1100px){
+  .kpi-grid{grid-template-columns:repeat(3,1fr)}.charts-row{grid-template-columns:1fr 1fr}.bottom-row{grid-template-columns:1fr}
+}
+/* Mobile: scale down to fit like desktop */
+@media(max-width:768px){
+  body { min-width:1100px; }
+  .header { padding:0 1rem; }
+  .filters-bar { padding:0.5rem 1rem; flex-wrap:wrap; gap:6px; }
+  .main { padding:0 1rem 1rem; }
+  meta[name=viewport] { content: 'width=1100'; }
+}
 </style>
 </head>
 <body>
@@ -102,6 +117,7 @@ tbody tr:hover td{background:#f8fafc}
     <input type="date" id="filtroHasta" onchange="aplicarFiltros()" style="padding:6px 10px;border:1px solid rgba(0,0,0,.07);border-radius:8px;font-size:12px;background:#fff;color:#0f1923;font-family:DM Sans,sans-serif;cursor:pointer">
     <button onclick="limpiarFechas()" style="padding:5px 10px;border:1px solid rgba(0,0,0,.07);border-radius:8px;font-size:11px;background:#fff;color:#64748b;cursor:pointer;font-family:DM Sans,sans-serif">✕ Limpiar</button>
   </div>
+  <select id="filtroObservador" onchange="aplicarFiltros()"><option value="">Todos los observadores</option></select>
   <div class="filter-spacer"></div>
   <span class="total-badge" id="totalBadge">0 registros</span>
 </div>
@@ -149,6 +165,14 @@ tbody tr:hover td{background:#f8fafc}
       <div class="chart-title">Nivel de riesgo</div>
       <div class="legend" id="legendRiesgo"></div>
       <div class="chart-wrap" style="height:160px"><canvas id="chartRiesgo"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Gráfico observadores -->
+  <div class="chart-card" style="margin-bottom:16px">
+    <div class="chart-title">Observaciones realizadas por observador</div>
+    <div class="chart-wrap" style="height:200px;margin-top:8px">
+      <canvas id="chartObservador"></canvas>
     </div>
   </div>
 
@@ -233,9 +257,14 @@ tbody tr:hover td{background:#f8fafc}
       if(r[C.turno]&&turnos.indexOf(r[C.turno])===-1) turnos.push(r[C.turno]);
       if(r[C.area] &&areas.indexOf(r[C.area])===-1)   areas.push(r[C.area]);
     });
-    var ft=g('filtroTurno'), fa=g('filtroArea');
+    var observadores=[];
+    datos.forEach(function(r){
+      if(r[C.observador]&&observadores.indexOf(r[C.observador])===-1) observadores.push(r[C.observador]);
+    });
+    var ft=g('filtroTurno'), fa=g('filtroArea'), fo=g('filtroObservador');
     if(ft) ft.innerHTML='<option value="">Todos los turnos</option>'+turnos.sort().map(function(t){return'<option>'+t+'</option>';}).join('');
     if(fa) fa.innerHTML='<option value="">Todas las áreas</option>' +areas.sort().map(function(a){return'<option>'+a+'</option>';}).join('');
+    if(fo) fo.innerHTML='<option value="">Todos los observadores</option>'+observadores.sort().map(function(o){return'<option>'+o+'</option>';}).join('');
   }
 
   function limpiarFechas(){
@@ -293,10 +322,28 @@ tbody tr:hover td{background:#f8fafc}
     var el=g(cid); if(!el) return;
     if(charts[cid]) charts[cid].destroy();
     charts[cid]=new Chart(el.getContext('2d'),{type:'bar',
-      data:{labels:labels,datasets:[{data:data,backgroundColor:['#2563eb','#3b82f6','#60a5fa'],borderRadius:4}]},
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-        scales:{y:{beginAtZero:true,ticks:{stepSize:1,color:'#94a3b8',font:{size:10}},grid:{color:'rgba(0,0,0,0.04)'}},
-                x:{ticks:{color:'#94a3b8',font:{size:10}},grid:{display:false}}}}});
+      data:{labels:labels,datasets:[{data:data,backgroundColor:['#2563eb','#3b82f6','#60a5fa','#2563eb','#3b82f6','#60a5fa','#2563eb','#3b82f6'],borderRadius:6,borderSkipped:false}]},
+      options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins:{
+          legend:{display:false},
+          tooltip:{enabled:true},
+          datalabels:{
+            anchor:'end',
+            align:'end',
+            color:'#0f1923',
+            font:{size:12,weight:'600',family:'DM Mono'},
+            formatter:function(v){return v;}
+          }
+        },
+        scales:{
+          y:{display:false, beginAtZero:true, grid:{display:false}},
+          x:{ticks:{color:'#64748b',font:{size:11,family:'DM Sans'}},grid:{display:false},border:{display:false}}
+        },
+        layout:{padding:{top:24}}
+      }
+    });
   }
 
   function renderTabla(datos){
@@ -341,10 +388,13 @@ tbody tr:hover td{background:#f8fafc}
         if(kl.indexOf('leve')!==-1)   return '#16a34a'; // verde
         return '#94a3b8'; // gris para "No aplica" y otros
       }));
+    // barArea ya viene ordenado desc por contarPor
     renderBars('barArea',contarPor(datos,C.area),'#2563eb');
     var cat={};
     datos.forEach(function(r){var c=r[C.categoria]||inferirCat(r);cat[c]=(cat[c]||0)+1;});
-    renderBars('barCategoria',cat,'#3b82f6');
+    // Ordenar descendente
+    var catSorted=Object.keys(cat).sort(function(a,b){return cat[b]-cat[a];}).reduce(function(o,k){o[k]=cat[k];return o;},{});
+    renderBars('barCategoria',catSorted,'#3b82f6');
     // Colaboradores: contar actos inseguros y seguros por persona
     var colabData = {};
     datos.forEach(function(r){
@@ -384,8 +434,14 @@ tbody tr:hover td{background:#f8fafc}
         '</div>';
       }).join('') || '<div style="color:#94a3b8;font-size:12px;padding:8px">Sin datos</div>';
     }
+    // Turno - ordenar descendente
     var tobj=contarPor(datos,C.turno);
-    renderBarChart('chartTurno',Object.keys(tobj),Object.keys(tobj).map(function(k){return tobj[k];}));
+    var tkeys=Object.keys(tobj).sort(function(a,b){return tobj[b]-tobj[a];});
+    renderBarChart('chartTurno',tkeys,tkeys.map(function(k){return tobj[k];}));
+    // Observadores - ordenar descendente
+    var oobj=contarPor(datos,C.observador);
+    var okeys=Object.keys(oobj).sort(function(a,b){return oobj[b]-oobj[a];});
+    renderBarChart('chartObservador',okeys,okeys.map(function(k){return oobj[k];}));
     renderTabla(datos);
   }
 
@@ -456,6 +512,9 @@ tbody tr:hover td{background:#f8fafc}
   };
 
   // Arrancar al cargar la página
+  // Register datalabels globally
+  if(window.ChartDataLabels) Chart.register(ChartDataLabels);
+
   document.addEventListener('DOMContentLoaded', function(){
     window.cargarDatos();
     setInterval(window.cargarDatos, 5*60*1000);
