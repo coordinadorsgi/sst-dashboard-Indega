@@ -13,69 +13,61 @@ body{font-family:'DM Sans',sans-serif;background:#f0f2f5;color:#0f1923;min-heigh
 .header{background:#fff;border-bottom:1px solid rgba(0,0,0,.07);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100}
 .header-left{display:flex;align-items:center;gap:12px}
 .header-left img{height:38px;width:auto;object-fit:contain}
-.header-titles h1{font-size:15px;font-weight:600;color:#0f1923}
+.header-titles h1{font-size:15px;font-weight:600}
 .header-titles p{font-size:11px;color:#94a3b8}
 .header-right{display:flex;align-items:center;gap:10px}
 .last-update{font-size:11px;color:#94a3b8;font-family:'DM Mono',monospace}
-.btn-refresh{display:flex;align-items:center;gap:6px;background:#2563eb;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
-.btn-refresh:hover{opacity:.88}
+.btn-refresh{background:#2563eb;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
 .filters-bar{display:flex;align-items:center;gap:8px;padding:1rem 2rem;flex-wrap:wrap}
 .filters-bar label{font-size:12px;color:#64748b;font-weight:500}
-.filters-bar select,.filters-bar input[type=date]{padding:6px 10px;border:1px solid rgba(0,0,0,.07);border-radius:8px;font-size:12px;background:#fff;color:#0f1923;font-family:'DM Sans',sans-serif;cursor:pointer}
+.filters-bar select,.filters-bar input[type=date]{padding:6px 10px;border:1px solid rgba(0,0,0,.07);border-radius:8px;font-size:12px;background:#fff;color:#0f1923;font-family:'DM Sans',sans-serif}
 .filter-spacer{flex:1}
 .total-badge{background:#dbeafe;color:#1e3a8a;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px}
-.clear-cross-filter{display:none;align-items:center;gap:6px;background:#fef3c7;color:#92400e;border:none;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
-.clear-cross-filter.visible{display:flex}
+.clear-cross{display:none;align-items:center;gap:6px;background:#fef3c7;color:#92400e;border:none;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
+.clear-cross.on{display:flex}
 .main{padding:0 2rem 2rem}
 .kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
-.kpi-card{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.07);padding:16px;transition:transform .15s;cursor:default}
-.kpi-card:hover{transform:translateY(-1px)}
+.kpi-card{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.07);padding:16px}
 .kpi-label{font-size:11px;color:#64748b;font-weight:500;margin-bottom:8px;display:flex;align-items:center;gap:5px}
 .kpi-label .dot{width:6px;height:6px;border-radius:50%}
-.kpi-value{font-size:32px;font-weight:300;color:#0f1923;line-height:1;margin-bottom:4px;font-family:'DM Mono',monospace}
+.kpi-value{font-size:32px;font-weight:300;line-height:1;margin-bottom:4px;font-family:'DM Mono',monospace}
 .kpi-pct{font-size:12px;font-weight:500;padding:2px 8px;border-radius:20px;display:inline-block}
-.kpi-pct.green{background:#dcfce7;color:#16a34a}
-.kpi-pct.red{background:#fee2e2;color:#dc2626}
-.kpi-pct.amber{background:#fef3c7;color:#d97706}
-.kpi-pct.blue{background:#dbeafe;color:#2563eb}
-.kpi-pct.gray{background:#f1f5f9;color:#64748b}
+.green{background:#dcfce7;color:#16a34a}.red{background:#fee2e2;color:#dc2626}
+.amber{background:#fef3c7;color:#d97706}.blue{background:#dbeafe;color:#2563eb}.gray{background:#f1f5f9;color:#64748b}
 .charts-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
-.chart-card{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.07);padding:18px;transition:border .2s,box-shadow .2s}
-.chart-card.active-filter,.proceso-card.active-filter{border:2px solid #2563eb;box-shadow:0 0 0 3px rgba(37,99,235,0.15)}
-.chart-title{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
-.chart-wrap{position:relative}
+.card{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.07);padding:18px;transition:border .15s,box-shadow .15s}
+.card.active-filter{border:2px solid #2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.card-title{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
 .legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
-.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:#64748b;cursor:pointer}
-.legend-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:#64748b;cursor:pointer;transition:opacity .15s}
+.legend-dot{width:8px;height:8px;border-radius:2px}
 .bar-list{display:flex;flex-direction:column;gap:6px}
 .bar-item{display:flex;align-items:center;gap:8px;cursor:pointer;border-radius:6px;padding:2px 4px;transition:opacity .2s}
 .bar-item:hover{background:#f8fafc}
-.bar-item.selected{background:#eff6ff}
-.bar-item.dimmed{opacity:.3}
+.bar-item.sel{background:#eff6ff}
+.bar-item.dim{opacity:.25}
 .bar-name{font-size:11px;color:#64748b;width:130px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bar-track{flex:1;background:#f1f5f9;border-radius:3px;height:12px;overflow:hidden}
-.bar-fill{height:100%;border-radius:3px;transition:width .6s ease}
+.bar-fill{height:100%;border-radius:3px}
 .bar-count{font-size:11px;color:#94a3b8;font-family:'DM Mono',monospace;width:20px;text-align:right}
+.colab-item{cursor:pointer;border-radius:6px;padding:3px 4px;margin-bottom:8px;transition:opacity .2s}
+.colab-item:hover{background:#f8fafc}
+.colab-item.sel{background:#eff6ff}
+.colab-item.dim{opacity:.25}
 .bottom-row{display:grid;grid-template-columns:1fr 1.8fr;gap:12px}
-.proceso-card{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.07);padding:18px;transition:border .2s}
-.table-card{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.07);padding:18px;overflow:hidden}
-.table-scroll{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:12px}
 thead th{text-align:left;padding:8px 10px;font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid rgba(0,0,0,.07);white-space:nowrap}
-tbody td{padding:9px 10px;border-bottom:1px solid rgba(0,0,0,.07);color:#0f1923;vertical-align:middle}
+tbody td{padding:9px 10px;border-bottom:1px solid rgba(0,0,0,.07);vertical-align:middle}
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover td{background:#f8fafc}
-.badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
-.badge-inseguro{background:#fee2e2;color:#dc2626}
-.badge-seguro{background:#dcfce7;color:#16a34a}
-.badge-grave{background:#fee2e2;color:#dc2626}
-.badge-leve{background:#dcfce7;color:#16a34a}
-.badge-moderado{background:#fef3c7;color:#d97706}
+.badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px}
+.bi{background:#fee2e2;color:#dc2626}.bs{background:#dcfce7;color:#16a34a}
+.bg{background:#fee2e2;color:#dc2626}.bl{background:#dcfce7;color:#16a34a}.bm{background:#fef3c7;color:#d97706}
 .state-box{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;color:#94a3b8;font-size:13px;gap:10px}
 .spinner{width:28px;height:28px;border:2px solid rgba(0,0,0,.07);border-top-color:#2563eb;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.error-msg{color:#dc2626;background:#fee2e2;border-radius:8px;padding:10px 16px;font-size:12px;text-align:center}
-.obs-bar-wrap{margin-bottom:16px}
+.err{color:#dc2626;background:#fee2e2;border-radius:8px;padding:10px 16px;font-size:12px;text-align:center}
+.table-scroll{overflow-x:auto}
 </style>
 </head>
 <body>
@@ -85,226 +77,162 @@ tbody tr:hover td{background:#f8fafc}
     <div class="header-titles"><h1>Dashboard SST</h1><p>Observación de Comportamiento Seguro</p></div>
   </div>
   <div class="header-right">
-    <span class="last-update" id="lastUpdate"></span>
-    <button class="btn-refresh" onclick="window.cargarDatos()">↻ Actualizar</button>
+    <span class="last-update" id="lu"></span>
+    <button class="btn-refresh" onclick="App.cargar()">↻ Actualizar</button>
   </div>
 </header>
-
 <div class="filters-bar">
   <label>Filtrar por:</label>
-  <select id="filtroTurno" onchange="window.aplicarFiltros()"><option value="">Todos los turnos</option></select>
-  <select id="filtroArea"  onchange="window.aplicarFiltros()"><option value="">Todas las áreas</option></select>
-  <select id="filtroTipo"  onchange="window.aplicarFiltros()">
+  <select id="fTurno" onchange="App.filtrar()"><option value="">Todos los turnos</option></select>
+  <select id="fArea"  onchange="App.filtrar()"><option value="">Todas las áreas</option></select>
+  <select id="fTipo"  onchange="App.filtrar()">
     <option value="">Acto seguro e inseguro</option>
     <option value="Acto inseguro">Solo actos inseguros</option>
     <option value="Acto seguro">Solo actos seguros</option>
   </select>
-  <select id="filtroObservador" onchange="window.aplicarFiltros()"><option value="">Todos los observadores</option></select>
-  <label>Desde</label>
-  <input type="date" id="filtroDesde" onchange="window.aplicarFiltros()">
-  <label>Hasta</label>
-  <input type="date" id="filtroHasta" onchange="window.aplicarFiltros()">
-  <button onclick="window.limpiarFechas()" style="padding:5px 10px;border:1px solid rgba(0,0,0,.07);border-radius:8px;font-size:11px;background:#fff;color:#64748b;cursor:pointer;font-family:'DM Sans',sans-serif">✕ Fechas</button>
-  <button class="clear-cross-filter" id="clearCrossFilter" onclick="window.limpiarFiltrosCruzados()">✕ Limpiar selección</button>
+  <select id="fObs"  onchange="App.filtrar()"><option value="">Todos los observadores</option></select>
+  <label>Desde</label><input type="date" id="fDesde" onchange="App.filtrar()">
+  <label>Hasta</label><input type="date" id="fHasta" onchange="App.filtrar()">
+  <button onclick="App.limpiarFechas()" style="padding:5px 10px;border:1px solid rgba(0,0,0,.07);border-radius:8px;font-size:11px;background:#fff;color:#64748b;cursor:pointer">✕ Fechas</button>
+  <button class="clear-cross" id="btnCross" onclick="App.limpiarCross()">✕ Limpiar selección</button>
   <div class="filter-spacer"></div>
-  <span class="total-badge" id="totalBadge">0 registros</span>
+  <span class="total-badge" id="badge">0 registros</span>
 </div>
-
 <div class="main">
   <div class="kpi-grid">
-    <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#2563eb"></span>Total observaciones</div><div class="kpi-value" id="kpiTotal">—</div><span class="kpi-pct blue" id="kpiTotalSub">registros</span></div>
-    <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#16a34a"></span>Actos seguros</div><div class="kpi-value" id="kpiSeguros">—</div><span class="kpi-pct green" id="kpiSegurosPct">—</span></div>
-    <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#dc2626"></span>Actos inseguros</div><div class="kpi-value" id="kpiInseguros">—</div><span class="kpi-pct red" id="kpiInsegurosPct">—</span></div>
-    <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#d97706"></span>Riesgo grave</div><div class="kpi-value" id="kpiGrave">—</div><span class="kpi-pct amber">requiere atención</span></div>
-    <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#64748b"></span>Trabajadores obs.</div><div class="kpi-value" id="kpiTrabajadores">—</div><span class="kpi-pct gray">cobertura total</span></div>
+    <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#2563eb"></span>Total observaciones</div><div class="kpi-value" id="kT">—</div><span class="kpi-pct blue">registros</span></div>
+    <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#16a34a"></span>Actos seguros</div><div class="kpi-value" id="kS">—</div><span class="kpi-pct green" id="kSp">—</span></div>
+    <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#dc2626"></span>Actos inseguros</div><div class="kpi-value" id="kI">—</div><span class="kpi-pct red" id="kIp">—</span></div>
+    <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#d97706"></span>Riesgo grave</div><div class="kpi-value" id="kG">—</div><span class="kpi-pct amber">requiere atención</span></div>
+    <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#64748b"></span>Trabajadores obs.</div><div class="kpi-value" id="kW">—</div><span class="kpi-pct gray">cobertura total</span></div>
   </div>
-
   <div class="charts-row">
-    <div class="chart-card" id="cardTipo"><div class="chart-title">Tipo de observación</div><div class="legend" id="legendTipo"></div><div class="chart-wrap" style="height:160px"><canvas id="chartTipo"></canvas></div></div>
-    <div class="chart-card"><div class="chart-title">Observaciones por área</div><div class="bar-list" id="barArea"></div></div>
-    <div class="chart-card" id="cardRiesgo"><div class="chart-title">Nivel de riesgo</div><div class="legend" id="legendRiesgo"></div><div class="chart-wrap" style="height:160px"><canvas id="chartRiesgo"></canvas></div></div>
+    <div class="card" id="cTipoCard"><div class="card-title">Tipo de observación</div><div class="legend" id="legTipo"></div><div style="position:relative;height:160px"><canvas id="cTipo"></canvas></div></div>
+    <div class="card"><div class="card-title">Observaciones por área</div><div class="bar-list" id="bArea"></div></div>
+    <div class="card" id="cRiesgoCard"><div class="card-title">Nivel de riesgo</div><div class="legend" id="legRiesgo"></div><div style="position:relative;height:160px"><canvas id="cRiesgo"></canvas></div></div>
   </div>
-
-  <div class="chart-card" style="margin-bottom:16px" id="cardObservador">
-    <div class="chart-title">Observaciones realizadas por observador</div>
-    <div class="chart-wrap" style="height:200px;margin-top:8px"><canvas id="chartObservador"></canvas></div>
-  </div>
-
+  <div class="card" style="margin-bottom:16px" id="cObsCard"><div class="card-title">Observaciones realizadas por observador</div><div style="position:relative;height:200px;margin-top:8px"><canvas id="cObservador"></canvas></div></div>
   <div class="bottom-row">
-    <div class="proceso-card" id="cardProceso">
-      <div class="chart-title">Categoría de hallazgo</div>
-      <div class="bar-list" id="barCategoria"></div>
-      <div class="chart-title" style="margin-top:20px">Por turno</div>
-      <div class="chart-wrap" style="height:120px;margin-top:8px"><canvas id="chartTurno"></canvas></div>
-      <div class="chart-title" style="margin-top:20px">Colaboradores con más reportes</div>
-      <div class="bar-list" id="barColaborador" style="margin-top:8px"></div>
+    <div class="card" id="cProcesoCard">
+      <div class="card-title">Categoría de hallazgo</div>
+      <div class="bar-list" id="bCat"></div>
+      <div class="card-title" style="margin-top:20px">Por turno</div>
+      <div style="position:relative;height:120px;margin-top:8px"><canvas id="cTurno"></canvas></div>
+      <div class="card-title" style="margin-top:20px">Colaboradores con más reportes</div>
+      <div id="bColab" style="margin-top:8px"></div>
     </div>
-    <div class="table-card">
-      <div class="chart-title" style="margin-bottom:14px">Detalle de hallazgos</div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px">Detalle de hallazgos</div>
       <div class="table-scroll">
         <table>
-          <thead><tr><th>Fecha</th><th>Turno</th><th>Área</th><th>Tipo</th><th>Categoría</th><th>Riesgo</th><th>Observador</th><th>Colaborador</th><th>Descripción del hallazgo</th></tr></thead>
-          <tbody id="tablaBody"><tr><td colspan="9"><div class="state-box"><div class="spinner"></div>Cargando...</div></td></tr></tbody>
+          <thead><tr><th>Fecha</th><th>Turno</th><th>Área</th><th>Tipo</th><th>Categoría</th><th>Riesgo</th><th>Observador</th><th>Colaborador</th><th>Descripción</th></tr></thead>
+          <tbody id="tbody"><tr><td colspan="9"><div class="state-box"><div class="spinner"></div>Cargando...</div></td></tr></tbody>
         </table>
       </div>
     </div>
   </div>
 </div>
-
 <script>
-(function(){
-  var SHEET_ID   = '1MY_YrZY0KidPGsvbJ2MXC2jYaUMv58VDXql09yDL2j0';
-  var SHEET_NAME = 'Respuestas de formulario 1';
-  var C = {fecha:1,turno:2,observador:3,trabajadores:4,proceso:5,area:6,tipo:7,
-           epp:8,montacargas:9,transito:10,cargue:11,orden:12,procedimientos:13,
-           comportamiento:14,descripcion:15,riesgo:16,accion:17,categoria:18,colaborador:19};
+var App = (function(){
+  var C = {ts:0,fecha:1,turno:2,obs:3,trab:4,proc:5,area:6,tipo:7,
+           epp:8,monta:9,transito:10,cargue:11,orden:12,procs:13,comp:14,
+           desc:15,riesgo:16,accion:17,cat:18,colab:19};
 
-  var datosOrig=[], datosFilt=[], charts={};
-  var FA = {tipo:null,riesgo:null,area:null,categoria:null,turno:null,observador:null};
+  var orig=[], filt=[], charts={};
+  var FA={tipo:null,riesgo:null,area:null,cat:null,turno:null,obs:null,colab:null};
+
+  var DATOS=[
+    ["20/05/2026 12:28:29","20/05/2026","Turno 2","Oscar Holguin","12","Descargue rutas","Zona de descargue","Acto inseguro","No uso de EPP","","","","","","","Trabajador no utilizaba las gafas","Leve (1/3)","Retroalimentación al colaborador","Elementos de protección personal","Cristian Franco",""],
+    ["21/05/2026 11:38:48","21/05/2026","Turno 1","Oscar Holguin","12","Abastecimiento de gas","Parqueaderos","Acto seguro","","","","","","","Uso correcto de EPP","Trabajador utilizando los epps de manera adecuada","No aplica","Felicitación por buenas prácticas","Comportamiento seguro","Johnny valencia",""],
+    ["21/05/2026 11:42:20","21/05/2026","Turno 1","Fernando Acosta","5","Atencion Decarrozados Fleteo","Zona de cargue","Acto inseguro","","","","","","Incumplimiento operativo","","Ausencia de capuchones en bloqueo de unidades carrozadas","Medio (1)","Parada de seguridad","Procedimientos","Ivan Armero",""],
+    ["21/05/2026 12:15:05","21/05/2026","Turno 1","Nicolas Gonzalez","3","Cargue y descargue rutas","Zona de descargue","Acto inseguro","","","","","","Incumplimiento operativo","","Colaborador realiza mal procedimiento de descenso del vehículo T0","Grave (3)","Parada de seguridad","Procedimientos","Ivan Armero",""],
+    ["21/05/2026 12:31:33","20/05/2026","Turno 1","Nicolas Gonzalez","4","Rotacion y organización Bodega 2","Bodega (Alistamiento)","Acto seguro","","","","","","","Uso correcto de EPP","Trabajador realizando las labores con los EPP","No aplica","Observación","Comportamiento seguro","Luis Bravo",""],
+    ["21/05/2026 12:34:04","20/05/2026","Turno 1","Lorena Mera","3","Cargue y descargue rutas","Zona de cargue","Acto inseguro","","No diligenciamiento cheklist preoperacional","","","","","","Colaborador no había diligenciado el checklist preoperacional","Grave (3)","Se detiene la operación y realiza el checklist","Montacargas y/o equipos","Ivan Armero",""],
+    ["21/05/2026 15:36:34","21/05/2026","Turno 1","Nicolas Gonzalez","1","Lavado de envases","Bodega (Alistamiento)","Acto seguro","La persona observada usa correctamente sus EPP","","","","","","","Colaborador usa de manera correcta sus EPP","No aplica","Parada de seguridad socialización EPP","Elementos de protección personal","Luis Alfonso Gamboa",""],
+    ["21/05/2026 16:16:38","21/05/2026","Turno 2","Lorena Mera","2","Descargue rutas","Zona de descargue","Acto inseguro","","No diligenciamiento cheklist preoperacional","","","","","","Edwin cuellar no había diligenciado el checklist preoperacional","Grave (3)","Retroalimentación y realiza el checklist","Montacargas y/o equipos","Edwin Cuellar",""],
+    ["22/05/2026 11:05:40","22/05/2026","Turno 1","Nicolas Gonzalez","1","Cargue y descargue rutas","Zona de descargue","Acto inseguro","","No diligenciamiento cheklist preoperacional","","","","","","Colaborador no realiza su pre operacional del equipo","Grave (3)","Parada de seguridad y socialización","Montacargas y/o equipos","Andrés esterilla",""],
+    ["22/05/2026 16:21:00","22/05/2026","Turno 2","Mauricio Gomez","10","Atencion Botelleros Fleteo","Buffer descargue","Acto inseguro","","","","","","No aplica procedimiento","","Trabajador transita por paso peatonal utilizando audífonos","Grave (3)","Llamado de atención verbal","Procedimientos","Gustavo Ospina",""],
+    ["22/05/2026 16:37:19","22/05/2026","Turno 1","Luis Alberto Jaramillo","18","Atencion Linea Brisa","Racks","Acto seguro","","","","","","","Buenas prácticas","Trabajador con EPP y check list diligenciado","No aplica","Felicitacion","Comportamiento seguro","Andres Advincula",""],
+    ["24/05/2026 12:37:04","24/05/2026","Turno 1","Mauricio Gomez","10","Atencion línea ofertas","Bodega (Alistamiento)","Acto seguro","","","","","","Duván armero no utiliza prenda reflectiva","","Operario sin prenda reflectiva","Grave (3)","Retroalimentación uso EPP","Procedimientos","Duván armero",""],
+    ["25/05/2026 1:47:13","25/05/2026","Turno 3","Luis Alberto Jaramillo","26","Cargue y descargue rutas","Zona de cargue","Acto inseguro","No uso de EPP","","","","","","","Auxiliar sin gafas de protección","Leve (1/3)","Informar importancia de EPP","Elementos de protección personal","Yeison Montes",""],
+    ["25/05/2026 12:57:42","25/05/2026","Turno 1","Lorena Mera","20","Descargue rutas","Zona de descargue","Acto seguro","Uso correcto de epps","","","","","","","Colaboradora usa sus epps de forma correcta","No aplica","Felicitación a Lucero","Elementos de protección personal","Lucero sinisterra",""],
+    ["25/05/2026 14:38:54","25/05/2026","Turno 1","Mauricio Gomez","12","Atencion Botelleros Fleteo","Andenes descargue","Acto seguro","","","","","","Ok chelick preoperacional","","Chelick preoperacional muy bien diligenciado","No aplica","Felicitaciones","Procedimientos","Níger Chary James Aldemar",""],
+    ["25/05/2026 17:32:00","25/05/2026","Turno 2","Cesar Velez","3","Atencion Decarrozados Fleteo","Andenes descargue","Acto inseguro","","","","","","Omisión de inspección","","No diligenciamiento de check list","Grave (3)","Llamado de atención y revisión de equipos","Procedimientos","Ivan armero",""],
+    ["25/05/2026 17:35:33","25/05/2026","Turno 2","Cesar Velez","1","Atencion Botelleros Fleteo","Zona de descargue","Acto inseguro","","","","","","Incumplimiento operativo","","Equipo mal estacionado en lugar no autorizado","Medio (1)","Llamado de atención al operario","Procedimientos","James Rodríguez",""],
+    ["25/05/2026 18:59:28","25/05/2026","Turno 2","Fernando Acosta","4","Atencion Botelleros Fleteo","Parqueaderos","Condición insegura","","","Producto y envase en zonas de transito","","","","","Envase en zona de parqueadero y tránsito de montacargas","Medio (1)","Instruir supervisor para despejar zona","Tránsito y movilidad","Cesar Vélez",""],
+    ["26/05/2026 4:25:28","26/05/2026","Turno 3","Luis Alberto Jaramillo","32","Túneles de armado","Zona Picking","Acto inseguro","No uso de EPP","","","","","","","Operario en túnel sin gafas de protección","Leve (1/3)","Informar importancia de EPP","Elementos de protección personal","Italo Armero",""],
+    ["26/05/2026 15:15:15","26/05/2026","Turno 1","Nicolas Gonzalez","4","Descargue rutas","Zona de descargue","Acto seguro","","","","","","Cumplimiento operativo","","Personal realiza correctamente el procedimiento de descarga","No aplica","Socialización parada de seguridad","Procedimientos","Julian Lopez",""],
+    ["26/05/2026 18:01:25","26/05/2026","Turno 1","Cesar Velez","10","Gabinete de carnet de OPM","Zona Picking","Acto inseguro","","","","","","Incumplimiento operativo","","Operario no deja carnet en gabinete del equipo","Leve (1/3)","Aviso al colaborador","Procedimientos","Rubén Trebicock",""],
+    ["27/05/2026 11:02:23","27/05/2026","Turno 1","Fernando Acosta","2","Cargue y descargue rutas","Buffer descargue","Acto inseguro","No uso de EPP","","","","","","","Operario trasladando estiba sin guantes de seguridad","Medio (1)","Retroalimentación sobre el riesgo","Elementos de protección personal","Iver Hurtado",""],
+    ["27/05/2026 11:54:45","27/05/2026","Turno 1","Nicolas Gonzalez","2","Atencion Botelleros Fleteo","Zona peatonal","Acto inseguro","","","Transitar con elementos distractores","","","","","Colaborador transitando con teléfono en la mano","Grave (3)","Socialización y parada de seguridad","Tránsito y movilidad","Dayana Quiroz",""],
+    ["27/05/2026 15:29:55","27/05/2026","Turno 2","Oscar Holguin","12","Cargue y descargue rutas","Bahia Descargue","Acto inseguro","Uso incorrecto de EPP","","","","","","","Colaborador no tenía puestas las gafas adecuadamente","Medio (1)","Abordaje importancia uso correcto EPP","Elementos de protección personal","Edwin",""],
+    ["28/05/2026 3:22:47","28/05/2026","Turno 3","Luis Alberto Jaramillo","32","Cargue y descargue rutas","Zona Picking","Acto inseguro","No uso de EPP","","","","","","","Operario sin gafas de protección en zona de armado","Medio (1)","Indicar obligatoriedad de EPP","Elementos de protección personal","Italo Armero",""],
+    ["28/05/2026 7:46:53","27/05/2026","Turno 3","Oscar Holguin","18","Descargue rutas","Zona de descargue","Acto seguro","","Uso inadecuado del equipo","","","","","","Operador montacaguista realizando maniobras seguras","No aplica","Reconocimiento buenas practicas","Montacargas y/o equipos","Jhon Lopez",""],
+    ["28/05/2026 10:00:08","28/05/2026","Turno 1","Brayan Calvache","6","Atencion Decarrozados Fleteo","Andenes descargue","Acto seguro","","","","","","","Uso correcto de EPP Buenas prácticas","Operario usa correctamente los epps","No aplica","Felicitación en sitio","Comportamiento seguro","Carlos Esterilla",""],
+    ["28/05/2026 21:12:07","28/05/2026","Turno 3","Fernando Acosta","18","Cargue y descargue rutas","Zona de cargue","Acto seguro","Uso correcto de EPPs","","","","","","","Personal haciendo uso correcto de los epps","No aplica","Reconocer la buena practica","Elementos de protección personal","Maniobras Generales",""],
+    ["29/05/2026 2:36:38","29/05/2026","Turno 3","Luis Alberto Jaramillo","32","Atencion línea ofertas","Bodega (Alistamiento)","Condición insegura","","","","En la zona de alistamiento el techo no está en óptimas condiciones","","","","Techo en malas condiciones, producto se humedece con lluvia","Leve (1/3)","Ubicar producto en otro espacio","Cargue y almacenamiento","Bodega de ofertas",""],
+    ["29/05/2026 11:22:38","28/05/2026","Turno 1","Nicolas Gonzalez","1","Rotacion y organización Bodega 2","Bahia Descargue","Acto inseguro","","","","","","Incumplimiento operativo","","Colaborador abre palet con vidrio sin usar guantes","Grave (3)","Parada de seguridad y retroalimentación","Procedimientos","Andres Esterilla",""],
+    ["29/05/2026 11:29:40","29/05/2026","Turno 1","Nicolas Gonzalez","2","Rotacion y organización Bodega 2","Zona peatonal","Condición insegura","","","Incumplimiento bloqueo","","","","","Colaborador no apaga el BT 16 al bajarse","Grave (3)","Retroalimentación y parada de seguridad","Tránsito y movilidad","Carlos Herrera",""],
+    ["29/05/2026 16:40:34","29/05/2026","Turno 2","Lorena Mera","8","Descargue rutas","Zona de descargue","Acto inseguro","No uso de EPP","","","","","","","Operario no usa ninguno de sus epps en vehículo T0","Grave (3)","Consulta con supervisor para validar","Elementos de protección personal","Ivan Armero",""],
+    ["29/05/2026 21:00:14","28/05/2026","Turno 2","Mauricio Gomez","10","Atencion Botelleros Fleteo","Bodega (Alistamiento)","Acto inseguro","","","","","","No aplica procedimiento","","Operador de montacargas utiliza el celular","Grave (3)","Informar de la falta grave","Procedimientos","Jhon Ramírez",""],
+    ["30/05/2026 5:24:47","30/05/2026","Turno 3","Luis Alberto Jaramillo","32","Cargue y descargue rutas","Bodega (Alistamiento)","Acto inseguro","No uso de EPP","","","","","","","Operario realizando funciones sin gafas de protección","Medio (1)","Informar obligatoriedad de EPP","Elementos de protección personal","Adrian Castañeda",""],
+    ["30/05/2026 11:04:27","30/05/2026","Turno 1","Nicolas Gonzalez","2","Tunel de armado","Bodega pasillo angostos","Condición insegura","","","Incumplimiento bloqueo","","","","","Colaborador deja el BT 16 encendido","Grave (3)","Abordar colaborador y parada de seguridad","Tránsito y movilidad","Iver Hurtado",""],
+    ["30/05/2026 11:12:27","30/05/2026","Turno 1","Nicolas Gonzalez","1","Túnel #1 de armado","Bodega pasillo angostos","Acto inseguro","","","Incumplimiento bloqueo","","","","","Colaborador opera BT 19 y lo deja encendido al bajarse","Grave (3)","Abordar colaborador y parada de seguridad","Tránsito y movilidad","Carlos Herrera",""],
+    ["30/05/2026 15:51:58","29/05/2026","Turno 1","Brayan Calvache","6","Atencion Decarrozados Fleteo","Andenes descargue","Acto seguro","","","","","","","Uso correcto de EPP","Botas bien ajustadas","No aplica","Felicitación en sitio","Comportamiento seguro","Miguel Angulo",""],
+    ["31/05/2026 14:30:04","29/05/2026","Turno 2","Mauricio Gomez","12","Atencion Linea Brisa","Bodega (Alistamiento)","Acto seguro","","Uso de celular operando","","","","","","Uso del celular al conducir equipo montacarga","Grave (3)","Retroalimentación de la falta cometida","Montacargas y/o equipos","Jhon Ramírez",""],
+    ["31/05/2026 14:36:43","31/05/2026","Turno 1","Mauricio Gomez","5","Atencion Botelleros Fleteo","Buffer descargue","Acto seguro","","Chelick preoperacional ok","","","","","","Licencia y chelick ok","No aplica","Felicitar por buena práctica","Montacargas y/o equipos","Níger Gutiérrez",""],
+    ["1/06/2026 8:22:09","1/06/2026","Turno 1","Brayan Calvache","5","Atencion Botelleros Fleteo","Andenes descargue","Acto seguro","","","","","","","Uso correcto de EPP","Epps bien empleados en buen estado","No aplica","Felicitaciones","Comportamiento seguro","Yamid Acevedo",""],
+    ["1/06/2026 12:56:25","1/06/2026","Turno 1","Luis Alberto Jaramillo","26","Alistamiento de JM","Bodega (Alistamiento)","Acto inseguro","","","","","","Incumplimiento operativo","","Operario deja equipo BT encendido cuando no lo usaba","Medio (1)","Llamado de atención al operario","Procedimientos","Luis Ruiz",""]
+  ];
 
   function g(id){ return document.getElementById(id); }
-  function setText(id,v){ var e=g(id); if(e) e.textContent=v; }
+  function st(id,v){ var e=g(id); if(e) e.textContent=v; }
 
   function inferirCat(r){
-    var m=[[C.epp,'EPP'],[C.montacargas,'Montacargas y/o equipos'],[C.transito,'Tránsito'],
-           [C.cargue,'Cargue'],[C.orden,'Orden y aseo'],[C.procedimientos,'Procedimientos'],
-           [C.comportamiento,'Comportamiento seguro']];
+    var m=[[C.epp,"EPP"],[C.monta,"Montacargas y/o equipos"],[C.transito,"Tránsito"],[C.cargue,"Cargue"],[C.orden,"Orden y aseo"],[C.procs,"Procedimientos"],[C.comp,"Comportamiento seguro"]];
     for(var i=0;i<m.length;i++) if(r[m[i][0]]&&r[m[i][0]].trim()) return m[i][1];
-    return 'Sin categoría';
+    return "Sin categoría";
+  }
+
+  function parseFecha(raw){
+    var p=(raw||"").match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+    return p?p[3]+"-"+p[2].padStart(2,"0")+"-"+p[1].padStart(2,"0"):raw;
   }
 
   function contarPor(datos,col){
-    var acc={};
-    datos.forEach(function(r){ var v=r[col]; if(v&&String(v).trim()) acc[v]=(acc[v]||0)+1; });
-    return Object.keys(acc).sort(function(a,b){return acc[b]-acc[a];})
-      .reduce(function(o,k){o[k]=acc[k];return o;},{});
+    var a={};
+    datos.forEach(function(r){ var v=r[col]; if(v&&v.trim()) a[v]=(a[v]||0)+1; });
+    return Object.keys(a).sort(function(x,y){return a[y]-a[x];}).reduce(function(o,k){o[k]=a[k];return o;},{});
   }
 
-  function parsearFecha(raw){
-    var p=raw.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
-    if(p) return p[3]+'-'+p[2].padStart(2,'0')+'-'+p[1].padStart(2,'0');
-    return raw;
-  }
-
-  // ── ESTADOS ──
-  function mostrarCargando(){
-    var tb=g('tablaBody');
-    if(tb) tb.innerHTML='<tr><td colspan="9"><div class="state-box"><div class="spinner"></div>Conectando con Google Sheets...</div></td></tr>';
-    ['kpiTotal','kpiSeguros','kpiInseguros','kpiGrave','kpiTrabajadores'].forEach(function(id){ setText(id,'—'); });
-  }
-  function mostrarError(msg){
-    var tb=g('tablaBody');
-    if(tb) tb.innerHTML='<tr><td colspan="9"><div class="state-box"><div class="error-msg">⚠️ '+msg+'</div></div></td></tr>';
-  }
-
-  // ── PARSEAR CSV ──
-  function parsearCSV(csv){
-    return csv.trim().split('\n').slice(1).map(function(linea){
-      var cols=[],dentro=false,celda='';
-      for(var i=0;i<linea.length;i++){
-        var c=linea[i];
-        if(c==='"'){dentro=!dentro;}
-        else if(c===','&&!dentro){cols.push(celda.replace(/^"|"$/g,'').trim());celda='';}
-        else{celda+=c;}
-      }
-      cols.push(celda.replace(/^"|"$/g,'').trim());
-      return cols;
-    }).filter(function(r){return r.some(function(v){return v.trim()!=='';});});
-  }
-
-  // ── POBLAR FILTROS ──
-  function poblarFiltros(datos){
-    var turnos=[],areas=[],obs=[];
-    datos.forEach(function(r){
-      if(r[C.turno]&&turnos.indexOf(r[C.turno])===-1) turnos.push(r[C.turno]);
-      if(r[C.area] &&areas.indexOf(r[C.area])===-1)   areas.push(r[C.area]);
-      if(r[C.observador]&&obs.indexOf(r[C.observador])===-1) obs.push(r[C.observador]);
-    });
-    var ft=g('filtroTurno'),fa=g('filtroArea'),fo=g('filtroObservador');
-    if(ft) ft.innerHTML='<option value="">Todos los turnos</option>'+turnos.sort().map(function(t){return'<option>'+t+'</option>';}).join('');
-    if(fa) fa.innerHTML='<option value="">Todas las áreas</option>'+areas.sort().map(function(a){return'<option>'+a+'</option>';}).join('');
-    if(fo) fo.innerHTML='<option value="">Todos los observadores</option>'+obs.sort().map(function(o){return'<option>'+o+'</option>';}).join('');
-  }
-
-  // ── FILTRO COMBINADO (toolbar + cruzado) ──
   function getFiltrado(){
-    var t=g('filtroTurno').value, a=g('filtroArea').value;
-    var tp=g('filtroTipo').value, obs=g('filtroObservador').value;
-    var desde=g('filtroDesde').value, hasta=g('filtroHasta').value;
-    return datosOrig.filter(function(r){
-      var fc = parsearFecha(r[C.fecha]||'');
-      var cat = r[C.categoria]||inferirCat(r);
-      return (!t    || r[C.turno]===t)          &&
-             (!a    || r[C.area]===a)           &&
-             (!tp   || r[C.tipo]===tp)          &&
-             (!obs  || r[C.observador]===obs)   &&
-             (!desde|| fc>=desde)               &&
-             (!hasta|| fc<=hasta)               &&
-             (!FA.tipo       || r[C.tipo]===FA.tipo)         &&
-             (!FA.riesgo     || (r[C.riesgo]||'').indexOf(FA.riesgo)!==-1) &&
-             (!FA.area       || r[C.area]===FA.area)         &&
-             (!FA.categoria  || cat===FA.categoria)          &&
-             (!FA.turno      || r[C.turno]===FA.turno)       &&
-             (!FA.observador || r[C.observador]===FA.observador);
+    var t=g("fTurno").value,a=g("fArea").value,tp=g("fTipo").value,ob=g("fObs").value;
+    var de=g("fDesde").value,ha=g("fHasta").value;
+    return orig.filter(function(r){
+      var fc=parseFecha(r[C.fecha]);
+      var cat=r[C.cat]||inferirCat(r);
+      return(!t||r[C.turno]===t)&&(!a||r[C.area]===a)&&(!tp||r[C.tipo]===tp)&&(!ob||r[C.obs]===ob)
+        &&(!de||fc>=de)&&(!ha||fc<=ha)
+        &&(!FA.tipo||r[C.tipo]===FA.tipo)
+        &&(!FA.riesgo||(r[C.riesgo]||"").indexOf(FA.riesgo)!==-1)
+        &&(!FA.area||r[C.area]===FA.area)
+        &&(!FA.cat||cat===FA.cat)
+        &&(!FA.turno||r[C.turno]===FA.turno)
+        &&(!FA.obs||r[C.obs]===FA.obs)
+        &&(!FA.colab||r[C.colab]===FA.colab);
     });
   }
 
-  function actualizarBotonCruzado(){
+  function updCrossBtn(){
     var hay=Object.keys(FA).some(function(k){return FA[k]!==null;});
-    var btn=g('clearCrossFilter');
-    if(btn) btn.className='clear-cross-filter'+(hay?' visible':'');
+    var b=g("btnCross"); if(b) b.className="clear-cross"+(hay?" on":"");
   }
 
-  // ── CLICK FILTRO CRUZADO ──
-  function toggleFA(campo,valor){
-    FA[campo] = FA[campo]===valor ? null : valor;
-    actualizarBotonCruzado();
-    datosFilt=getFiltrado();
-    renderizar(datosFilt);
-  }
-  window.toggleFA=toggleFA;
-
-  // ── RENDERIZAR ──
-  function renderizar(datos){
-    var total=datos.length,seg=0,inseg=0,grav=0,trab=0;
-    datos.forEach(function(r){
-      if(r[C.tipo]==='Acto seguro') seg++;
-      else if(r[C.tipo]==='Acto inseguro') inseg++;
-      if((r[C.riesgo]||'').indexOf('Grave')!==-1) grav++;
-      trab+=parseFloat(r[C.trabajadores])||0;
-    });
-    setText('totalBadge',total+' registros');
-    setText('kpiTotal',total); setText('kpiSeguros',seg); setText('kpiInseguros',inseg);
-    setText('kpiGrave',grav); setText('kpiTrabajadores',trab);
-    setText('kpiTotalSub','registros');
-    setText('kpiSegurosPct',total?Math.round(seg/total*100)+'%':'—');
-    setText('kpiInsegurosPct',total?Math.round(inseg/total*100)+'%':'—');
-
-    // Donas
-    renderDona('chartTipo','legendTipo','tipo',
-      ['Acto seguro','Acto inseguro'],[seg,inseg],['#16a34a','#dc2626']);
-    var robj=contarPor(datos,C.riesgo),rk=Object.keys(robj);
-    renderDona('chartRiesgo','legendRiesgo','riesgo',rk,rk.map(function(k){return robj[k];}),
-      rk.map(function(k){
-        var kl=k.toLowerCase();
-        return kl.indexOf('grave')!==-1?'#dc2626':kl.indexOf('medio')!==-1||kl.indexOf('moderado')!==-1?'#d97706':kl.indexOf('leve')!==-1?'#16a34a':'#94a3b8';
-      }));
-
-    // Barras HTML
-    renderBars('barArea',contarPor(datos,C.area),'area','#2563eb');
-    var cat={};
-    datos.forEach(function(r){var c=r[C.categoria]||inferirCat(r);cat[c]=(cat[c]||0)+1;});
-    var catS=Object.keys(cat).sort(function(a,b){return cat[b]-cat[a];}).reduce(function(o,k){o[k]=cat[k];return o;},{});
-    renderBars('barCategoria',catS,'categoria','#3b82f6');
-    renderColaboradores(datos);
-
-    // Bar charts
-    var tobj=contarPor(datos,C.turno),tkeys=Object.keys(tobj);
-    renderBarChart('chartTurno','turno',tkeys,tkeys.map(function(k){return tobj[k];}));
-    var oobj=contarPor(datos,C.observador),okeys=Object.keys(oobj);
-    renderBarChart('chartObservador','observador',okeys,okeys.map(function(k){return oobj[k];}));
-
-    renderTabla(datos);
+  function toggle(campo,val){
+    FA[campo]=FA[campo]===val?null:val;
+    updCrossBtn();
+    filt=getFiltrado();
+    render(filt);
   }
 
   function renderDona(cid,lid,campo,labels,data,colors){
@@ -312,214 +240,197 @@ tbody tr:hover td{background:#f8fafc}
     if(charts[cid]) charts[cid].destroy();
     var tot=data.reduce(function(s,v){return s+v;},0);
     var le=g(lid);
-    if(le) le.innerHTML=labels.map(function(l,i){
-      var activo=FA[campo]===l;
-      return'<div class="legend-item" style="'+(FA[campo]&&!activo?'opacity:.4':'')+'" onclick="window.toggleFA(''+campo+'',''+l.replace(/'/g,"\'")+'')">'
-        +'<span class="legend-dot" style="background:'+colors[i]+';outline:'+(activo?'2px solid #0f1923':'none')+'"></span>'+l
-        +' ('+(tot?Math.round(data[i]/tot*100):0)+'%)</div>';
-    }).join('');
+    if(le){
+      var h="";
+      labels.forEach(function(l,i){
+        var isA=FA[campo]===l;
+        h+='<div class="legend-item" style="'+(FA[campo]&&!isA?"opacity:.3":"")+'" onclick="App.toggle(\''+campo+'\',\''+l.replace(/'/g,"\\'")+'\')">'+
+          '<span class="legend-dot" style="background:'+colors[i]+';outline:'+(isA?"2px solid #0f1923":"none")+'"></span>'+
+          l+' ('+(tot?Math.round(data[i]/tot*100):0)+'%)</div>';
+      });
+      le.innerHTML=h;
+    }
     var activo=FA[campo];
-    charts[cid]=new Chart(el.getContext('2d'),{type:'doughnut',
+    charts[cid]=new Chart(el.getContext("2d"),{type:"doughnut",
       data:{labels:labels,datasets:[{data:data,
-        backgroundColor:labels.map(function(l,i){return !activo||l===activo?colors[i]:colors[i]+'44';}),
-        borderWidth:3,borderColor:'#fff',hoverOffset:6}]},
-      options:{responsive:true,maintainAspectRatio:false,cutout:'68%',
+        backgroundColor:labels.map(function(l,i){return !activo||l===activo?colors[i]:colors[i]+"55";}),
+        borderWidth:3,borderColor:"#fff",hoverOffset:6}]},
+      options:{responsive:true,maintainAspectRatio:false,cutout:"68%",
         plugins:{legend:{display:false}},
-        onClick:function(evt,items){
+        onClick:function(e,items){
           if(!items.length) return;
-          window.toggleFA(campo,labels[items[0].index]);
-        }
-      }
-    });
+          App.toggle(campo,labels[items[0].index]);
+        }}});
   }
 
   function renderBars(cid,obj,campo,color){
     var el=g(cid); if(!el) return;
     var activo=FA[campo];
-    var vals=Object.keys(obj).map(function(k){return obj[k];}),max=Math.max.apply(null,vals.concat([1]));
-    el.innerHTML=Object.keys(obj).map(function(k){
-      var sel=activo===k, dim=activo&&activo!==k;
-      return'<div class="bar-item'+(sel?' selected':dim?' dimmed':'')+'" onclick="window.toggleFA(''+campo+'',''+k.replace(/'/g,"\'")+'')">'
-        +'<div class="bar-name" title="'+k+'">'+k+'</div>'
-        +'<div class="bar-track"><div class="bar-fill" style="width:'+Math.round(obj[k]/max*100)+'%;background:'+color+'"></div></div>'
-        +'<div class="bar-count">'+obj[k]+'</div></div>';
-    }).join('')||'<div style="color:#94a3b8;font-size:12px;padding:8px">Sin datos</div>';
-  }
-
-  function renderColaboradores(datos){
-    var colabData={};
-    datos.forEach(function(r){
-      var nombre=(r[C.colaborador]||'').trim();
-      if(!nombre) return;
-      if(!colabData[nombre]) colabData[nombre]={inseguros:0,seguros:0};
-      if(r[C.tipo]==='Acto inseguro') colabData[nombre].inseguros++;
-      else if(r[C.tipo]==='Acto seguro') colabData[nombre].seguros++;
+    var vals=Object.keys(obj).map(function(k){return obj[k];});
+    var max=Math.max.apply(null,vals.concat([1]));
+    var h="";
+    Object.keys(obj).forEach(function(k){
+      var sel=activo===k,dim=activo&&activo!==k;
+      var cls="bar-item"+(sel?" sel":dim?" dim":"");
+      h+='<div class="'+cls+'" data-campo="'+campo+'" data-val="'+k.replace(/"/g,"&quot;")+'" onclick="App.toggle(this.dataset.campo,this.dataset.val)">'+
+        '<div class="bar-name" title="'+k+'">'+k+'</div>'+
+        '<div class="bar-track"><div class="bar-fill" style="width:'+Math.round(obj[k]/max*100)+'%;background:'+color+'"></div></div>'+
+        '<div class="bar-count">'+obj[k]+'</div></div>';
     });
-    var keys=Object.keys(colabData).sort(function(a,b){return colabData[b].inseguros-colabData[a].inseguros;});
-    var el=g('barColaborador');
-    if(!el) return;
-    el.innerHTML=keys.map(function(n){
-      var d=colabData[n],tot=d.inseguros+d.seguros;
-      var pI=tot?Math.round(d.inseguros/tot*100):0,pS=tot?Math.round(d.seguros/tot*100):0;
-      return'<div class="obs-bar-wrap">'
-        +'<div style="display:flex;justify-content:space-between;font-size:11px;color:#64748b;margin-bottom:3px">'
-        +'<span>'+n+'</span>'
-        +'<span>'+(d.inseguros?'<span style="color:#dc2626">'+d.inseguros+' inseg.</span>':'')+
-          (d.inseguros&&d.seguros?' · ':'')+
-          (d.seguros?'<span style="color:#16a34a">'+d.seguros+' seg.</span>':'')+
-        '</span></div>'
-        +'<div style="width:100%;height:10px;border-radius:3px;overflow:hidden;display:flex">'
-        +(d.inseguros?'<div style="width:'+pI+'%;background:#dc2626;height:100%"></div>':'')+
-        (d.seguros?'<div style="width:'+pS+'%;background:#16a34a;height:100%"></div>':'')+
-        '</div></div>';
-    }).join('')||'<div style="color:#94a3b8;font-size:12px;padding:8px">Sin datos</div>';
+    el.innerHTML=h||'<div style="color:#94a3b8;font-size:12px;padding:8px">Sin datos</div>';
   }
 
   function renderBarChart(cid,campo,labels,data){
     var el=g(cid); if(!el) return;
     if(charts[cid]) charts[cid].destroy();
     var activo=FA[campo];
-    var bgColors=labels.map(function(l){return !activo||l===activo?'#2563eb':'rgba(37,99,235,0.2)';});
-    charts[cid]=new Chart(el.getContext('2d'),{type:'bar',
-      data:{labels:labels,datasets:[{data:data,backgroundColor:bgColors,borderRadius:6,borderSkipped:false}]},
+    var bg=labels.map(function(l){return !activo||l===activo?"#2563eb":"rgba(37,99,235,.2)";});
+    charts[cid]=new Chart(el.getContext("2d"),{type:"bar",
+      data:{labels:labels,datasets:[{data:data,backgroundColor:bg,borderRadius:6,borderSkipped:false}]},
       options:{responsive:true,maintainAspectRatio:false,
-        plugins:{legend:{display:false},
-          datalabels:{anchor:'end',align:'end',color:'#0f1923',font:{size:12,weight:'600'},formatter:function(v){return v;}}},
-        scales:{y:{display:false,beginAtZero:true},x:{ticks:{color:'#64748b',font:{size:11}},grid:{display:false},border:{display:false}}},
+        plugins:{legend:{display:false},datalabels:{anchor:"end",align:"end",color:"#0f1923",font:{size:12,weight:"600"},formatter:function(v){return v;}}},
+        scales:{y:{display:false,beginAtZero:true},x:{ticks:{color:"#64748b",font:{size:11}},grid:{display:false},border:{display:false}}},
         layout:{padding:{top:24}},
-        onClick:function(evt,items){
+        onClick:function(e,items){
           if(!items.length) return;
-          window.toggleFA(campo,labels[items[0].index]);
-        }
-      }
+          App.toggle(campo,labels[items[0].index]);
+        }}});
+  }
+
+  function renderColab(datos){
+    var d={};
+    datos.forEach(function(r){
+      var n=(r[C.colab]||"").trim(); if(!n) return;
+      if(!d[n]) d[n]={i:0,s:0};
+      if(r[C.tipo]==="Acto inseguro") d[n].i++;
+      else if(r[C.tipo]==="Acto seguro") d[n].s++;
     });
+    var keys=Object.keys(d).sort(function(a,b){return d[b].i-d[a].i;});
+    var el=g("bColab"); if(!el) return;
+    var activo=FA["colab"];
+    var h="";
+    keys.forEach(function(n){
+      var v=d[n],tot=v.i+v.s;
+      var pI=tot?Math.round(v.i/tot*100):0,pS=tot?Math.round(v.s/tot*100):0;
+      var sel=activo===n,dim=activo&&activo!==n;
+      h+='<div class="colab-item'+(sel?" sel":dim?" dim":"")+'" data-campo="colab" data-val="'+n.replace(/"/g,"&quot;")+'" onclick="App.toggle(this.dataset.campo,this.dataset.val)">'+
+        '<div style="display:flex;justify-content:space-between;font-size:11px;color:#64748b;margin-bottom:3px">'+
+        '<span style="font-weight:'+(sel?"600":"400")+'">'+n+'</span>'+
+        '<span>'+(v.i?'<span style="color:#dc2626">'+v.i+' inseg.</span>':"")+
+        (v.i&&v.s?" · ":"")+
+        (v.s?'<span style="color:#16a34a">'+v.s+' seg.</span>':"")+
+        '</span></div>'+
+        '<div style="width:100%;height:10px;border-radius:3px;overflow:hidden;display:flex">'+
+        (v.i?'<div style="width:'+pI+'%;background:#dc2626;height:100%"></div>':"")+
+        (v.s?'<div style="width:'+pS+'%;background:#16a34a;height:100%"></div>':"")+
+        '</div></div>';
+    });
+    el.innerHTML=h||'<div style="color:#94a3b8;font-size:12px;padding:8px">Sin datos</div>';
   }
 
   function renderTabla(datos){
-    var tb=g('tablaBody'); if(!tb) return;
-    if(!datos.length){tb.innerHTML='<tr><td colspan="9"><div class="state-box">Sin registros para los filtros seleccionados.</div></td></tr>';return;}
-    tb.innerHTML=datos.slice().reverse().map(function(r){
-      var tipo=r[C.tipo]||'',riesgo=r[C.riesgo]||'',cat=r[C.categoria]||inferirCat(r);
-      var tb2=tipo==='Acto seguro'?'<span class="badge badge-seguro">Acto seguro</span>':'<span class="badge badge-inseguro">Acto inseguro</span>';
+    var tb=g("tbody"); if(!tb) return;
+    if(!datos.length){tb.innerHTML='<tr><td colspan="9"><div class="state-box">Sin registros.</div></td></tr>';return;}
+    var h="";
+    datos.slice().reverse().forEach(function(r){
+      var tipo=r[C.tipo]||"",riesgo=r[C.riesgo]||"",cat=r[C.cat]||inferirCat(r);
+      var tb2=tipo==="Acto seguro"?'<span class="badge bs">Acto seguro</span>':'<span class="badge bi">'+tipo+'</span>';
       var rb='<span style="color:#94a3b8">—</span>';
-      if(riesgo.indexOf('Grave')!==-1) rb='<span class="badge badge-grave">Grave</span>';
-      else if(riesgo.indexOf('Moderado')!==-1||riesgo.indexOf('Medio')!==-1) rb='<span class="badge badge-moderado">Moderado</span>';
-      else if(riesgo.indexOf('Leve')!==-1) rb='<span class="badge badge-leve">Leve</span>';
-      return'<tr><td style="font-size:11px">'+(r[C.fecha]||'')+'</td>'
-        +'<td>'+(r[C.turno]||'—')+'</td><td>'+(r[C.area]||'—')+'</td>'
-        +'<td>'+tb2+'</td><td>'+cat+'</td><td>'+rb+'</td>'
-        +'<td>'+(r[C.observador]||'—')+'</td>'
-        +'<td>'+(r[C.colaborador]||'—')+'</td>'
-        +'<td style="font-size:11px;color:#64748b;max-width:200px">'+(r[C.descripcion]||'—')+'</td></tr>';
-    }).join('');
+      if(riesgo.indexOf("Grave")!==-1) rb='<span class="badge bg">Grave</span>';
+      else if(riesgo.indexOf("Medio")!==-1||riesgo.indexOf("Moderado")!==-1) rb='<span class="badge bm">Medio</span>';
+      else if(riesgo.indexOf("Leve")!==-1) rb='<span class="badge bl">Leve</span>';
+      h+='<tr><td style="font-size:11px">'+r[C.fecha]+'</td><td>'+r[C.turno]+'</td><td>'+r[C.area]+'</td>'+
+        '<td>'+tb2+'</td><td>'+cat+'</td><td>'+rb+'</td>'+
+        '<td>'+r[C.obs]+'</td><td>'+r[C.colab]+'</td>'+
+        '<td style="font-size:11px;color:#64748b;max-width:180px">'+r[C.desc]+'</td></tr>';
+    });
+    tb.innerHTML=h;
+  }
+
+  function poblarFiltros(datos){
+    var ts=[],as=[],os=[];
+    datos.forEach(function(r){
+      if(r[C.turno]&&ts.indexOf(r[C.turno])===-1) ts.push(r[C.turno]);
+      if(r[C.area] &&as.indexOf(r[C.area])===-1)  as.push(r[C.area]);
+      if(r[C.obs]  &&os.indexOf(r[C.obs])===-1)   os.push(r[C.obs]);
+    });
+    var ft=g("fTurno"),fa=g("fArea"),fo=g("fObs");
+    if(ft) ft.innerHTML='<option value="">Todos los turnos</option>'+ts.sort().map(function(t){return'<option>'+t+'</option>';}).join("");
+    if(fa) fa.innerHTML='<option value="">Todas las áreas</option>'+as.sort().map(function(a){return'<option>'+a+'</option>';}).join("");
+    if(fo) fo.innerHTML='<option value="">Todos los observadores</option>'+os.sort().map(function(o){return'<option>'+o+'</option>';}).join("");
+  }
+
+  function render(datos){
+    var tot=datos.length,seg=0,inseg=0,grav=0,trab=0;
+    datos.forEach(function(r){
+      if(r[C.tipo]==="Acto seguro") seg++;
+      else if(r[C.tipo]==="Acto inseguro") inseg++;
+      if((r[C.riesgo]||"").indexOf("Grave")!==-1) grav++;
+      trab+=parseFloat(r[C.trab])||0;
+    });
+    st("badge",tot+" registros");
+    st("kT",tot); st("kS",seg); st("kI",inseg); st("kG",grav); st("kW",trab);
+    st("kSp",tot?Math.round(seg/tot*100)+"%":"—");
+    st("kIp",tot?Math.round(inseg/tot*100)+"%":"—");
+
+    renderDona("cTipo","legTipo","tipo",["Acto seguro","Acto inseguro"],[seg,inseg],["#16a34a","#dc2626"]);
+    var ro=contarPor(datos,C.riesgo),rk=Object.keys(ro);
+    renderDona("cRiesgo","legRiesgo","riesgo",rk,rk.map(function(k){return ro[k];}),
+      rk.map(function(k){var l=k.toLowerCase();return l.indexOf("grave")!==-1?"#dc2626":l.indexOf("medio")!==-1||l.indexOf("moderado")!==-1?"#d97706":l.indexOf("leve")!==-1?"#16a34a":"#94a3b8";}));
+
+    renderBars("bArea",contarPor(datos,C.area),"area","#2563eb");
+    var cat={};
+    datos.forEach(function(r){var c=r[C.cat]||inferirCat(r);cat[c]=(cat[c]||0)+1;});
+    var catS=Object.keys(cat).sort(function(a,b){return cat[b]-cat[a];}).reduce(function(o,k){o[k]=cat[k];return o;},{});
+    renderBars("bCat",catS,"cat","#3b82f6");
+
+    var to=contarPor(datos,C.turno),tk=Object.keys(to);
+    renderBarChart("cTurno","turno",tk,tk.map(function(k){return to[k];}));
+    var oo=contarPor(datos,C.obs),ok=Object.keys(oo);
+    renderBarChart("cObservador","obs",ok,ok.map(function(k){return oo[k];}));
+
+    renderColab(datos);
+    renderTabla(datos);
   }
 
   function procesarDatos(datos){
-    if(!datos||!datos.length){mostrarError('Sin datos. Verifica que el Sheet sea público y tenga respuestas.');return;}
-    datosOrig=datos;
-    poblarFiltros(datosOrig);
-    datosFilt=datosOrig.slice();
-    renderizar(datosFilt);
-    setText('lastUpdate','Actualizado: '+new Date().toLocaleTimeString('es-CO'));
+    if(!datos||!datos.length){
+      g("tbody").innerHTML='<tr><td colspan="9"><div class="state-box"><div class="err">Sin datos</div></div></td></tr>';
+      return;
+    }
+    orig=datos; poblarFiltros(orig);
+    filt=getFiltrado(); render(filt);
+    st("lu","Actualizado: "+new Date().toLocaleTimeString("es-CO"));
   }
 
-  var DATOS_EMBEBIDOS = [
-    ["20/05/2026 12:28:29","20/05/2026","Turno 2","Oscar Holguin","12","Descargue rutas","Zona de descargue","Acto inseguro","No uso de EPP","","","","","","","Trabajador se encontraba en el área de descargue no utilizaba las gafas","Leve (1/3)","Se realiza retroalimentación al colaborador, importancia de su uso en la operación","Elementos de protección personal","Cristian Franco",""],
-    ["21/05/2026 11:38:48","21/05/2026","Turno 1","Oscar Holguin","12","Abastecimiento de gas","Parqueaderos","Acto seguro","","","","","","","Uso correcto de EPP","Se evidencia trabajador utilizando los epps de manera adecuada","No aplica","Felicitación por buenas prácticas","Comportamiento seguro","Johnny valencia",""],
-    ["21/05/2026 11:42:20","21/05/2026","Turno 1","Fernando Acosta","5","Atencion Decarrozados Fleteo","Zona de cargue","Acto inseguro","","","","","","Incumplimiento operativo","","Ausencia de capuchones en bloqueo de unidades carrozadas","Medio (1)","Parada de seguridad en la zona sw incumplimiento","Procedimientos","Ivan Armero",""],
-    ["21/05/2026 12:15:05","21/05/2026","Turno 1","Nicolas Gonzalez","3","Cargue y descargue rutas","Zona de descargue","Acto inseguro","","","","","","Incumplimiento operativo","","Colaborador realiza mal procedimiento de descenso del vehículo T0","Grave (3)","Parada de seguridad","Procedimientos","Ivan Armero",""],
-    ["21/05/2026 12:31:33","20/05/2026","Turno 1","Nicolas Gonzalez","4","Rotacion y organización Bodega 2","Bodega (Alistamiento)","Acto seguro","","","","","","","Uso correcto de EPP","Se evidencia que el trabajador estaba realizando las labores con los EPP","No aplica","Observación","Comportamiento seguro","Luis Bravo",""],
-    ["21/05/2026 12:34:04","20/05/2026","Turno 1","Lorena Mera","3","Cargue y descargue rutas","Zona de cargue","Acto inseguro","","No diligenciamiento cheklist preoperacional","","","","","","El colaborador no había diligenciado el checklist preoperacional","Grave (3)","Se detiene la operación y el colaborador realiza el checklist","Montacargas y/o equipos","Ivan Armero",""],
-    ["21/05/2026 15:36:34","21/05/2026","Turno 1","Nicolas Gonzalez","1","Lavado de envases","Bodega (Alistamiento)","Acto seguro","La persona observada usa correctamente sus EPP","","","","","","","El colaborador observado usa de manera correcta sus EPP","No aplica","Parada de seguridad (socialización del buen uso de sus epp)","Elementos de protección personal","Luis Alfonso Gamboa",""],
-    ["21/05/2026 16:16:38","21/05/2026","Turno 2","Lorena Mera","2","Descargue rutas","Zona de descargue","Acto inseguro","","No diligenciamiento cheklist preoperacional","","","","","","El señor Edwin cuellar no había diligenciado el checklist preoperacional","Grave (3)","Se le hace la retroalimentación y el procede a realizar el checklist","Montacargas y/o equipos","Edwin Cuellar",""],
-    ["22/05/2026 11:05:40","22/05/2026","Turno 1","Nicolas Gonzalez","1","Cargue y descargue rutas","Zona de descargue","Acto inseguro","","No diligenciamiento cheklist preoperacional","","","","","","Se evidencia que el colaborador no realiza su pre operacional del equipo","Grave (3)","Intervenir, Parada de seguridad y socialización","Montacargas y/o equipos","Andrés esterilla",""],
-    ["22/05/2026 16:21:00","22/05/2026","Turno 2","Mauricio Gomez","10","Atencion Botelleros Fleteo","Buffer descargue","Acto inseguro","","","","","","No aplica procedimiento","","El trabajador transita por paso peatonal utilizando audífonos","Grave (3)","Se realiza llamado de atención verbal al trabajador","Procedimientos","Gustavo Ospina",""],
-    ["22/05/2026 16:37:19","22/05/2026","Turno 1","Luis Alberto Jaramillo","18","Atencion Linea Brisa","Racks","Acto seguro","","","","","","","Buenas prácticas","El trabajador contaba con sus EPP y tiene el check list diligenciado","No aplica","Felicitacion","Comportamiento seguro","Andres Advincula",""],
-    ["24/05/2026 12:37:04","24/05/2026","Turno 1","Mauricio Gomez","10","Atencion línea ofertas","Bodega (Alistamiento)","Acto seguro","","","","","","Duván armero no utiliza prenda reflectiva","","El operario se encontró sin prenda reflectiva","Grave (3)","Buen uso de los elementos de protección personal","Procedimientos","Duván armero",""],
-    ["25/05/2026 1:47:13","25/05/2026","Turno 3","Luis Alberto Jaramillo","26","Cargue y descargue rutas","Zona de cargue","Acto inseguro","No uso de EPP","","","","","","","El auxiliar de conteo está en las bahías sin sus gafas de protección","Leve (1/3)","Se le informa al auxiliar de la importancia de tener sus EPP","Elementos de protección personal","Yeison Montes",""],
-    ["25/05/2026 12:57:42","25/05/2026","Turno 1","Lorena Mera","20","Descargue rutas","Zona de descargue","Acto seguro","Uso correcto de epps","","","","","","","La colaboradora usa sus epps de forma correcta","No aplica","Se felicitó a lucero por el uso de sus epps","Elementos de protección personal","Lucero sinisterra",""],
-    ["25/05/2026 14:38:54","25/05/2026","Turno 1","Mauricio Gomez","12","Atencion Botelleros Fleteo","Andenes descargue","Acto seguro","","","","","","Ok chelick preoperacional","","Chelick preoperacional en turno 1 muy bien diligenciado","No aplica","Felicitaciones","Procedimientos","Níger Chary James Aldemar Agudelo y leyder Adrada",""],
-    ["25/05/2026 17:32:00","25/05/2026","Turno 2","Cesar Velez","3","Atencion Decarrozados Fleteo","Andenes descargue","Acto inseguro","","","","","","Omisión de inspección","","No diligenciamiento de check list bts y estibadores","Grave (3)","Se le llama la atención y se le hace revisar los equipos","Procedimientos","Ivan armero y Luis panameño",""],
-    ["25/05/2026 17:35:33","25/05/2026","Turno 2","Cesar Velez","1","Atencion Botelleros Fleteo","Zona de descargue","Acto inseguro","","","","","","Incumplimiento operativo","","El operario deja equipo mal estacionado en lugar no autorizado","Medio (1)","Se le llama la atención al operario","Procedimientos","James Rodríguez",""],
-    ["25/05/2026 18:59:28","25/05/2026","Turno 2","Fernando Acosta","4","Atencion Botelleros Fleteo","Parqueaderos","Condición insegura","","","Producto y envase en zonas de transito","","","","","Envase y producto en zona de parqueadero y tránsito de montacargas","Medio (1)","Se instruye al supervisor que se despeje la zona","Tránsito y movilidad","Cesar Vélez",""],
-    ["26/05/2026 4:25:28","26/05/2026","Turno 3","Luis Alberto Jaramillo","32","Túneles de armado","Zona Picking","Acto inseguro","No uso de EPP","","","","","","","Se observa al operario en el túnel de armado sin gafas de protección","Leve (1/3)","Se le informa al operario la importancia de utilizar sus EPP","Elementos de protección personal","Italo Armero",""],
-    ["26/05/2026 15:15:15","26/05/2026","Turno 1","Nicolas Gonzalez","4","Descargue rutas","Zona de descargue","Acto seguro","","","","","","Cumplimiento operativo","","El personal observado realiza correctamente el procedimiento de descarga","No aplica","Socialización, parada de seguridad","Procedimientos","Julian Lopez",""],
-    ["26/05/2026 18:01:25","26/05/2026","Turno 1","Cesar Velez","10","Gabinete de carnet de OPM","Zona Picking","Acto inseguro","","","","","","Incumplimiento operativo","","El operario no deja carnet en gabinete del equipo que está operando","Leve (1/3)","Se le avisa al colaborador de dejar el carnet en su puesto","Procedimientos","Rubén Trebicock",""],
-    ["27/05/2026 11:02:23","27/05/2026","Turno 1","Fernando Acosta","2","Cargue y descargue rutas","Buffer descargue","Acto inseguro","No uso de EPP","","","","","","","Se evidencia al operario trasladando estiba de madera sin uso de sus guantes","Medio (1)","Se aborda al colaborador y se retroalimenta sobre el riesgo","Elementos de protección personal","Iver Hurtado",""],
-    ["27/05/2026 11:54:45","27/05/2026","Turno 1","Nicolas Gonzalez","2","Atencion Botelleros Fleteo","Zona peatonal","Acto inseguro","","","Transitar en la bodega con elementos distractores","","","","","Se evidencia al colaborador transitando con su teléfono en la mano","Grave (3)","Socialización y parada de seguridad","Tránsito y movilidad","Dayana Quiroz",""],
-    ["27/05/2026 15:29:55","27/05/2026","Turno 2","Oscar Holguin","12","Cargue y descargue rutas","Bahia Descargue","Acto inseguro","Uso incorrecto de EPP","","","","","","","Colaborador no tenía puestas las Gafas adecuadamente","Medio (1)","Se realiza el abordaje de importancia de uso correcto","Elementos de protección personal","Edwin",""],
-    ["28/05/2026 3:22:47","28/05/2026","Turno 3","Luis Alberto Jaramillo","32","Cargue y descargue rutas","Zona Picking","Acto inseguro","No uso de EPP","","","","","","","El operario no está utilizando sus gafas de protección","Medio (1)","Se le indica al operario que los elementos de protección son obligatorios","Elementos de protección personal","Italo Armero",""],
-    ["28/05/2026 7:46:53","27/05/2026","Turno 3","Oscar Holguin","18","Descargue rutas","Zona de descargue","Acto seguro","","Uso inadecuado del equipo","","","","","","Operador montacaguista realizando maniobras seguras durante el descargue","No aplica","Se realiza el abordaje reconociendo las buenas practicas","Montacargas y/o equipos","Jhon Lopez",""],
-    ["28/05/2026 10:00:08","28/05/2026","Turno 1","Brayan Calvache","6","Atencion Decarrozados Fleteo","Andenes descargue","Acto seguro","","","","","","","Uso correcto de EPP, Buenas prácticas","El operario usa correctamente los epps","No aplica","Felicitación en sitio de trabajo","Comportamiento seguro","Carlos Esterilla",""],
-    ["28/05/2026 21:12:07","28/05/2026","Turno 3","Fernando Acosta","18","Cargue y descargue rutas","Zona de cargue","Acto seguro","Uso correcto de EPPs","","","","","","","Personal haciendo uso correcto de los epps en túneles y pistas","No aplica","Se reconoce la buena practica","Elementos de protección personal","Maniobras Generales",""],
-    ["29/05/2026 2:36:38","29/05/2026","Turno 3","Luis Alberto Jaramillo","32","Atencion línea ofertas","Bodega (Alistamiento)","Condición insegura","","","","En la zona de alistamiento de ofertas el techo no está en óptimas condiciones","","","","Techo en malas condiciones, al llover el producto se humedece","Leve (1/3)","Se ubica el producto en otro espacio","Cargue y almacenamiento","Bodega de ofertas",""],
-    ["29/05/2026 11:22:38","28/05/2026","Turno 1","Nicolas Gonzalez","1","Rotacion y organización Bodega 2","Bahia Descargue","Acto inseguro","","","","","","Incumplimiento operativo","","Se observa al colaborador abrir un palet con un vidrio y sin usar sus guantes","Grave (3)","Realizar parada de seguridad y retroalimentación","Procedimientos","Andres Esterilla",""],
-    ["29/05/2026 11:29:40","29/05/2026","Turno 1","Nicolas Gonzalez","2","Rotacion y organización Bodega 2","Zona peatonal","Condición insegura","","","Incumplimiento bloqueo","","","","","El colaborador observado no apaga el BT 16 al bajarse","Grave (3)","Realizar retroalimentación y parada de seguridad","Tránsito y movilidad","Carlos Herrera",""],
-    ["29/05/2026 16:40:34","29/05/2026","Turno 2","Lorena Mera","8","Descargue rutas","Zona de descargue","Acto inseguro","No uso de EPP","","","","","","","El operario no usa ninguno de sus epps en un vehículo T0","Grave (3)","Se consulta con el supervisor para validar","Elementos de protección personal","Ivan Armero",""],
-    ["29/05/2026 21:00:14","28/05/2026","Turno 2","Mauricio Gomez","10","Atencion Botelleros Fleteo","Bodega (Alistamiento)","Acto inseguro","","","","","","No aplica procedimiento","","El operador de montacargas utiliza el celular","Grave (3)","Se le informa de la falta grave que está realizando","Procedimientos","Jhon Ramírez",""],
-    ["30/05/2026 5:24:47","30/05/2026","Turno 3","Luis Alberto Jaramillo","32","Cargue y descargue rutas","Bodega (Alistamiento)","Acto inseguro","No uso de EPP","","","","","","","El operario está realizando funciones sin sus gafas de protección","Medio (1)","Se le informa al operario que los EPP son de uso obligatorio","Elementos de protección personal","Adrian Castañeda",""],
-    ["30/05/2026 11:04:27","30/05/2026","Turno 1","Nicolas Gonzalez","2","Tunel de armado","Bodega pasillo angostos","Condición insegura","","","Incumplimiento bloqueo","","","","","Se evidencia que el colaborador deja el BT 16 encendido","Grave (3)","Abordar al colaborador y realizar parada de seguridad","Tránsito y movilidad","Iver Hurtado",""],
-    ["30/05/2026 11:12:27","30/05/2026","Turno 1","Nicolas Gonzalez","1","Túnel #1 de armado","Bodega pasillo angostos","Acto inseguro","","","Incumplimiento bloqueo","","","","","El colaborador quien opera el BT 19 lo deja encendido al bajarse","Grave (3)","Abordar al colaborador y realizar parada de seguridad","Tránsito y movilidad","Carlos Herrera",""],
-    ["30/05/2026 15:51:58","29/05/2026","Turno 1","Brayan Calvache","6","Atencion Decarrozados Fleteo","Andenes descargue","Acto seguro","","","","","","","Uso correcto de EPP","Botas bien ajustadas","No aplica","Felicitación en sitio, se le animó a que siga así","Comportamiento seguro","Miguel Angulo",""],
-    ["31/05/2026 14:30:04","29/05/2026","Turno 2","Mauricio Gomez","12","Atencion Linea Brisa","Bodega (Alistamiento)","Acto seguro","","Uso de celular operando","","","","","","Uso del celular al conducir equipo montacarga","Grave (3)","Se aborda al operario y se hace la retroalimentación","Montacargas y/o equipos","Jhon Ramírez",""],
-    ["31/05/2026 14:36:43","31/05/2026","Turno 1","Mauricio Gomez","5","Atencion Botelleros Fleteo","Buffer descargue","Acto seguro","","Chelick preoperacional ok","","","","","","Licencia y chelick ok","No aplica","Se felicita por la buena práctica","Montacargas y/o equipos","Níger Gutiérrez",""],
-    ["1/06/2026 8:22:09","1/06/2026","Turno 1","Brayan Calvache","5","Atencion Botelleros Fleteo","Andenes descargue","Acto seguro","","","","","","","Uso correcto de EPP","Epps bien empleados, en buen estado","No aplica","Felicitaciones","Comportamiento seguro","Yamid Acevedo",""]
-  ];
-
-  // ── CARGA DE DATOS ──
-  var APPS_URL = 'https://script.google.com/macros/s/AKfycbwljuL_L1UVWdzX6p6q56yREYfqmU2F_F71wUh-mm3VL71cCcogGPpuztJVgU5kXYvZlw/exec';
-
-  function cargarCSV(){
-    // Primero cargar datos embebidos inmediatamente
-    procesarDatos(DATOS_EMBEBIDOS);
-    // Luego intentar actualizar desde Apps Script en segundo plano
-    actualizarDesdeAppsScript();
-  }
-
-  function actualizarDesdeAppsScript(){
-    var prev = g('apps-script'); if(prev) prev.remove();
-    window.__sst_cb = function(resp){
-      delete window.__sst_cb;
-      if(!resp || resp.status !== 'ok' || !resp.values || resp.values.length < 2) return;
-      var rows = resp.values.slice(1).filter(function(r){
-        return r.some(function(v){ return String(v||'').trim() !== ''; });
-      });
-      if(rows.length > 0){
-        procesarDatos(rows);
-        setText('lastUpdate','Actualizado desde Sheet: '+new Date().toLocaleTimeString('es-CO'));
-      }
+  function cargar(){
+    // Cargar datos embebidos inmediatamente
+    procesarDatos(DATOS);
+    // Intentar actualizar desde Apps Script en segundo plano
+    var prev=g("apps-script"); if(prev) prev.remove();
+    window.__cb=function(resp){
+      delete window.__cb;
+      if(!resp||resp.status!=="ok"||!resp.values||resp.values.length<2) return;
+      var rows=resp.values.slice(1).filter(function(r){return r.some(function(v){return String(v||"").trim()!=="";});});
+      if(rows.length>0){ procesarDatos(rows); st("lu","Sheet actualizado: "+new Date().toLocaleTimeString("es-CO")); }
     };
-    var s = document.createElement('script');
-    s.id  = 'apps-script';
-    s.src = APPS_URL + '?callback=__sst_cb&t=' + Date.now();
+    var s=document.createElement("script");
+    s.id="apps-script";
+    s.src="https://script.google.com/macros/s/AKfycbwljuL_L1UVWdzX6p6q56yREYfqmU2F_F71wUh-mm3VL71cCcogGPpuztJVgU5kXYvZlw/exec?callback=__cb&t="+Date.now();
     document.head.appendChild(s);
   }
 
-  function cargarGVIZ(){ cargarCSV(); }
-
-  // ── EXPONER FUNCIONES GLOBALES ──
-  window.cargarDatos = function(){ mostrarCargando(); cargarCSV(); };
-  window.aplicarFiltros = function(){ datosFilt=getFiltrado(); renderizar(datosFilt); };
-  window.limpiarFechas = function(){
-    var d=g('filtroDesde'),h=g('filtroHasta');
-    if(d)d.value=''; if(h)h.value='';
-    window.aplicarFiltros();
+  return {
+    cargar: cargar,
+    filtrar: function(){ filt=getFiltrado(); render(filt); },
+    toggle: toggle,
+    limpiarCross: function(){ Object.keys(FA).forEach(function(k){FA[k]=null;}); updCrossBtn(); filt=getFiltrado(); render(filt); },
+    limpiarFechas: function(){ var d=g("fDesde"),h=g("fHasta"); if(d)d.value=""; if(h)h.value=""; filt=getFiltrado(); render(filt); }
   };
-  window.limpiarFiltrosCruzados = function(){
-    Object.keys(FA).forEach(function(k){FA[k]=null;});
-    actualizarBotonCruzado();
-    datosFilt=getFiltrado();
-    renderizar(datosFilt);
-  };
-
-  // ── ARRANCAR ──
-  if(window.ChartDataLabels) Chart.register(window.ChartDataLabels);
-  document.addEventListener('DOMContentLoaded', function(){
-    window.cargarDatos();
-    setInterval(window.cargarDatos, 5*60*1000);
-  });
-
 })();
+
+if(window.ChartDataLabels) Chart.register(window.ChartDataLabels);
+document.addEventListener("DOMContentLoaded",function(){ App.cargar(); setInterval(App.cargar,5*60*1000); });
 </script>
 </body>
 </html>
