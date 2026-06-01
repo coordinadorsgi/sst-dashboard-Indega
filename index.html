@@ -423,54 +423,79 @@ tbody tr:hover td{background:#f8fafc}
     setText('lastUpdate','Actualizado: '+new Date().toLocaleTimeString('es-CO'));
   }
 
+  var DATOS_EMBEBIDOS = [
+    ["20/05/2026 12:28:29","20/05/2026","Turno 2","Oscar Holguin","12","Descargue rutas","Zona de descargue","Acto inseguro","No uso de EPP","","","","","","","Trabajador se encontraba en el área de descargue no utilizaba las gafas","Leve (1/3)","Se realiza retroalimentación al colaborador, importancia de su uso en la operación","Elementos de protección personal","Cristian Franco",""],
+    ["21/05/2026 11:38:48","21/05/2026","Turno 1","Oscar Holguin","12","Abastecimiento de gas","Parqueaderos","Acto seguro","","","","","","","Uso correcto de EPP","Se evidencia trabajador utilizando los epps de manera adecuada","No aplica","Felicitación por buenas prácticas","Comportamiento seguro","Johnny valencia",""],
+    ["21/05/2026 11:42:20","21/05/2026","Turno 1","Fernando Acosta","5","Atencion Decarrozados Fleteo","Zona de cargue","Acto inseguro","","","","","","Incumplimiento operativo","","Ausencia de capuchones en bloqueo de unidades carrozadas","Medio (1)","Parada de seguridad en la zona sw incumplimiento","Procedimientos","Ivan Armero",""],
+    ["21/05/2026 12:15:05","21/05/2026","Turno 1","Nicolas Gonzalez","3","Cargue y descargue rutas","Zona de descargue","Acto inseguro","","","","","","Incumplimiento operativo","","Colaborador realiza mal procedimiento de descenso del vehículo T0","Grave (3)","Parada de seguridad","Procedimientos","Ivan Armero",""],
+    ["21/05/2026 12:31:33","20/05/2026","Turno 1","Nicolas Gonzalez","4","Rotacion y organización Bodega 2","Bodega (Alistamiento)","Acto seguro","","","","","","","Uso correcto de EPP","Se evidencia que el trabajador estaba realizando las labores con los EPP","No aplica","Observación","Comportamiento seguro","Luis Bravo",""],
+    ["21/05/2026 12:34:04","20/05/2026","Turno 1","Lorena Mera","3","Cargue y descargue rutas","Zona de cargue","Acto inseguro","","No diligenciamiento cheklist preoperacional","","","","","","El colaborador no había diligenciado el checklist preoperacional","Grave (3)","Se detiene la operación y el colaborador realiza el checklist","Montacargas y/o equipos","Ivan Armero",""],
+    ["21/05/2026 15:36:34","21/05/2026","Turno 1","Nicolas Gonzalez","1","Lavado de envases","Bodega (Alistamiento)","Acto seguro","La persona observada usa correctamente sus EPP","","","","","","","El colaborador observado usa de manera correcta sus EPP","No aplica","Parada de seguridad (socialización del buen uso de sus epp)","Elementos de protección personal","Luis Alfonso Gamboa",""],
+    ["21/05/2026 16:16:38","21/05/2026","Turno 2","Lorena Mera","2","Descargue rutas","Zona de descargue","Acto inseguro","","No diligenciamiento cheklist preoperacional","","","","","","El señor Edwin cuellar no había diligenciado el checklist preoperacional","Grave (3)","Se le hace la retroalimentación y el procede a realizar el checklist","Montacargas y/o equipos","Edwin Cuellar",""],
+    ["22/05/2026 11:05:40","22/05/2026","Turno 1","Nicolas Gonzalez","1","Cargue y descargue rutas","Zona de descargue","Acto inseguro","","No diligenciamiento cheklist preoperacional","","","","","","Se evidencia que el colaborador no realiza su pre operacional del equipo","Grave (3)","Intervenir, Parada de seguridad y socialización","Montacargas y/o equipos","Andrés esterilla",""],
+    ["22/05/2026 16:21:00","22/05/2026","Turno 2","Mauricio Gomez","10","Atencion Botelleros Fleteo","Buffer descargue","Acto inseguro","","","","","","No aplica procedimiento","","El trabajador transita por paso peatonal utilizando audífonos","Grave (3)","Se realiza llamado de atención verbal al trabajador","Procedimientos","Gustavo Ospina",""],
+    ["22/05/2026 16:37:19","22/05/2026","Turno 1","Luis Alberto Jaramillo","18","Atencion Linea Brisa","Racks","Acto seguro","","","","","","","Buenas prácticas","El trabajador contaba con sus EPP y tiene el check list diligenciado","No aplica","Felicitacion","Comportamiento seguro","Andres Advincula",""],
+    ["24/05/2026 12:37:04","24/05/2026","Turno 1","Mauricio Gomez","10","Atencion línea ofertas","Bodega (Alistamiento)","Acto seguro","","","","","","Duván armero no utiliza prenda reflectiva","","El operario se encontró sin prenda reflectiva","Grave (3)","Buen uso de los elementos de protección personal","Procedimientos","Duván armero",""],
+    ["25/05/2026 1:47:13","25/05/2026","Turno 3","Luis Alberto Jaramillo","26","Cargue y descargue rutas","Zona de cargue","Acto inseguro","No uso de EPP","","","","","","","El auxiliar de conteo está en las bahías sin sus gafas de protección","Leve (1/3)","Se le informa al auxiliar de la importancia de tener sus EPP","Elementos de protección personal","Yeison Montes",""],
+    ["25/05/2026 12:57:42","25/05/2026","Turno 1","Lorena Mera","20","Descargue rutas","Zona de descargue","Acto seguro","Uso correcto de epps","","","","","","","La colaboradora usa sus epps de forma correcta","No aplica","Se felicitó a lucero por el uso de sus epps","Elementos de protección personal","Lucero sinisterra",""],
+    ["25/05/2026 14:38:54","25/05/2026","Turno 1","Mauricio Gomez","12","Atencion Botelleros Fleteo","Andenes descargue","Acto seguro","","","","","","Ok chelick preoperacional","","Chelick preoperacional en turno 1 muy bien diligenciado","No aplica","Felicitaciones","Procedimientos","Níger Chary James Aldemar Agudelo y leyder Adrada",""],
+    ["25/05/2026 17:32:00","25/05/2026","Turno 2","Cesar Velez","3","Atencion Decarrozados Fleteo","Andenes descargue","Acto inseguro","","","","","","Omisión de inspección","","No diligenciamiento de check list bts y estibadores","Grave (3)","Se le llama la atención y se le hace revisar los equipos","Procedimientos","Ivan armero y Luis panameño",""],
+    ["25/05/2026 17:35:33","25/05/2026","Turno 2","Cesar Velez","1","Atencion Botelleros Fleteo","Zona de descargue","Acto inseguro","","","","","","Incumplimiento operativo","","El operario deja equipo mal estacionado en lugar no autorizado","Medio (1)","Se le llama la atención al operario","Procedimientos","James Rodríguez",""],
+    ["25/05/2026 18:59:28","25/05/2026","Turno 2","Fernando Acosta","4","Atencion Botelleros Fleteo","Parqueaderos","Condición insegura","","","Producto y envase en zonas de transito","","","","","Envase y producto en zona de parqueadero y tránsito de montacargas","Medio (1)","Se instruye al supervisor que se despeje la zona","Tránsito y movilidad","Cesar Vélez",""],
+    ["26/05/2026 4:25:28","26/05/2026","Turno 3","Luis Alberto Jaramillo","32","Túneles de armado","Zona Picking","Acto inseguro","No uso de EPP","","","","","","","Se observa al operario en el túnel de armado sin gafas de protección","Leve (1/3)","Se le informa al operario la importancia de utilizar sus EPP","Elementos de protección personal","Italo Armero",""],
+    ["26/05/2026 15:15:15","26/05/2026","Turno 1","Nicolas Gonzalez","4","Descargue rutas","Zona de descargue","Acto seguro","","","","","","Cumplimiento operativo","","El personal observado realiza correctamente el procedimiento de descarga","No aplica","Socialización, parada de seguridad","Procedimientos","Julian Lopez",""],
+    ["26/05/2026 18:01:25","26/05/2026","Turno 1","Cesar Velez","10","Gabinete de carnet de OPM","Zona Picking","Acto inseguro","","","","","","Incumplimiento operativo","","El operario no deja carnet en gabinete del equipo que está operando","Leve (1/3)","Se le avisa al colaborador de dejar el carnet en su puesto","Procedimientos","Rubén Trebicock",""],
+    ["27/05/2026 11:02:23","27/05/2026","Turno 1","Fernando Acosta","2","Cargue y descargue rutas","Buffer descargue","Acto inseguro","No uso de EPP","","","","","","","Se evidencia al operario trasladando estiba de madera sin uso de sus guantes","Medio (1)","Se aborda al colaborador y se retroalimenta sobre el riesgo","Elementos de protección personal","Iver Hurtado",""],
+    ["27/05/2026 11:54:45","27/05/2026","Turno 1","Nicolas Gonzalez","2","Atencion Botelleros Fleteo","Zona peatonal","Acto inseguro","","","Transitar en la bodega con elementos distractores","","","","","Se evidencia al colaborador transitando con su teléfono en la mano","Grave (3)","Socialización y parada de seguridad","Tránsito y movilidad","Dayana Quiroz",""],
+    ["27/05/2026 15:29:55","27/05/2026","Turno 2","Oscar Holguin","12","Cargue y descargue rutas","Bahia Descargue","Acto inseguro","Uso incorrecto de EPP","","","","","","","Colaborador no tenía puestas las Gafas adecuadamente","Medio (1)","Se realiza el abordaje de importancia de uso correcto","Elementos de protección personal","Edwin",""],
+    ["28/05/2026 3:22:47","28/05/2026","Turno 3","Luis Alberto Jaramillo","32","Cargue y descargue rutas","Zona Picking","Acto inseguro","No uso de EPP","","","","","","","El operario no está utilizando sus gafas de protección","Medio (1)","Se le indica al operario que los elementos de protección son obligatorios","Elementos de protección personal","Italo Armero",""],
+    ["28/05/2026 7:46:53","27/05/2026","Turno 3","Oscar Holguin","18","Descargue rutas","Zona de descargue","Acto seguro","","Uso inadecuado del equipo","","","","","","Operador montacaguista realizando maniobras seguras durante el descargue","No aplica","Se realiza el abordaje reconociendo las buenas practicas","Montacargas y/o equipos","Jhon Lopez",""],
+    ["28/05/2026 10:00:08","28/05/2026","Turno 1","Brayan Calvache","6","Atencion Decarrozados Fleteo","Andenes descargue","Acto seguro","","","","","","","Uso correcto de EPP, Buenas prácticas","El operario usa correctamente los epps","No aplica","Felicitación en sitio de trabajo","Comportamiento seguro","Carlos Esterilla",""],
+    ["28/05/2026 21:12:07","28/05/2026","Turno 3","Fernando Acosta","18","Cargue y descargue rutas","Zona de cargue","Acto seguro","Uso correcto de EPPs","","","","","","","Personal haciendo uso correcto de los epps en túneles y pistas","No aplica","Se reconoce la buena practica","Elementos de protección personal","Maniobras Generales",""],
+    ["29/05/2026 2:36:38","29/05/2026","Turno 3","Luis Alberto Jaramillo","32","Atencion línea ofertas","Bodega (Alistamiento)","Condición insegura","","","","En la zona de alistamiento de ofertas el techo no está en óptimas condiciones","","","","Techo en malas condiciones, al llover el producto se humedece","Leve (1/3)","Se ubica el producto en otro espacio","Cargue y almacenamiento","Bodega de ofertas",""],
+    ["29/05/2026 11:22:38","28/05/2026","Turno 1","Nicolas Gonzalez","1","Rotacion y organización Bodega 2","Bahia Descargue","Acto inseguro","","","","","","Incumplimiento operativo","","Se observa al colaborador abrir un palet con un vidrio y sin usar sus guantes","Grave (3)","Realizar parada de seguridad y retroalimentación","Procedimientos","Andres Esterilla",""],
+    ["29/05/2026 11:29:40","29/05/2026","Turno 1","Nicolas Gonzalez","2","Rotacion y organización Bodega 2","Zona peatonal","Condición insegura","","","Incumplimiento bloqueo","","","","","El colaborador observado no apaga el BT 16 al bajarse","Grave (3)","Realizar retroalimentación y parada de seguridad","Tránsito y movilidad","Carlos Herrera",""],
+    ["29/05/2026 16:40:34","29/05/2026","Turno 2","Lorena Mera","8","Descargue rutas","Zona de descargue","Acto inseguro","No uso de EPP","","","","","","","El operario no usa ninguno de sus epps en un vehículo T0","Grave (3)","Se consulta con el supervisor para validar","Elementos de protección personal","Ivan Armero",""],
+    ["29/05/2026 21:00:14","28/05/2026","Turno 2","Mauricio Gomez","10","Atencion Botelleros Fleteo","Bodega (Alistamiento)","Acto inseguro","","","","","","No aplica procedimiento","","El operador de montacargas utiliza el celular","Grave (3)","Se le informa de la falta grave que está realizando","Procedimientos","Jhon Ramírez",""],
+    ["30/05/2026 5:24:47","30/05/2026","Turno 3","Luis Alberto Jaramillo","32","Cargue y descargue rutas","Bodega (Alistamiento)","Acto inseguro","No uso de EPP","","","","","","","El operario está realizando funciones sin sus gafas de protección","Medio (1)","Se le informa al operario que los EPP son de uso obligatorio","Elementos de protección personal","Adrian Castañeda",""],
+    ["30/05/2026 11:04:27","30/05/2026","Turno 1","Nicolas Gonzalez","2","Tunel de armado","Bodega pasillo angostos","Condición insegura","","","Incumplimiento bloqueo","","","","","Se evidencia que el colaborador deja el BT 16 encendido","Grave (3)","Abordar al colaborador y realizar parada de seguridad","Tránsito y movilidad","Iver Hurtado",""],
+    ["30/05/2026 11:12:27","30/05/2026","Turno 1","Nicolas Gonzalez","1","Túnel #1 de armado","Bodega pasillo angostos","Acto inseguro","","","Incumplimiento bloqueo","","","","","El colaborador quien opera el BT 19 lo deja encendido al bajarse","Grave (3)","Abordar al colaborador y realizar parada de seguridad","Tránsito y movilidad","Carlos Herrera",""],
+    ["30/05/2026 15:51:58","29/05/2026","Turno 1","Brayan Calvache","6","Atencion Decarrozados Fleteo","Andenes descargue","Acto seguro","","","","","","","Uso correcto de EPP","Botas bien ajustadas","No aplica","Felicitación en sitio, se le animó a que siga así","Comportamiento seguro","Miguel Angulo",""],
+    ["31/05/2026 14:30:04","29/05/2026","Turno 2","Mauricio Gomez","12","Atencion Linea Brisa","Bodega (Alistamiento)","Acto seguro","","Uso de celular operando","","","","","","Uso del celular al conducir equipo montacarga","Grave (3)","Se aborda al operario y se hace la retroalimentación","Montacargas y/o equipos","Jhon Ramírez",""],
+    ["31/05/2026 14:36:43","31/05/2026","Turno 1","Mauricio Gomez","5","Atencion Botelleros Fleteo","Buffer descargue","Acto seguro","","Chelick preoperacional ok","","","","","","Licencia y chelick ok","No aplica","Se felicita por la buena práctica","Montacargas y/o equipos","Níger Gutiérrez",""],
+    ["1/06/2026 8:22:09","1/06/2026","Turno 1","Brayan Calvache","5","Atencion Botelleros Fleteo","Andenes descargue","Acto seguro","","","","","","","Uso correcto de EPP","Epps bien empleados, en buen estado","No aplica","Felicitaciones","Comportamiento seguro","Yamid Acevedo",""]
+  ];
+
   // ── CARGA DE DATOS ──
-  // URL directa de exportación CSV — la más confiable desde GitHub Pages
-  var CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSK1qeM1w_cE57g6yx6otCzlAIuaD2E8PHiv8yn-UQGjaA262nvwGNwSqpg45i5FenHlv8J-t78nfYg/pub?gid=837193085&single=true&output=csv';
+  var APPS_URL = 'https://script.google.com/macros/s/AKfycbwljuL_L1UVWdzX6p6q56yREYfqmU2F_F71wUh-mm3VL71cCcogGPpuztJVgU5kXYvZlw/exec';
 
   function cargarCSV(){
-    // Proxy para evitar CORS desde GitHub Pages
-    var proxy = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(CSV_URL);
-    fetch(proxy)
-      .then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); })
-      .then(function(csv){
-        if(!csv || csv.length < 10) throw new Error('empty');
-        procesarDatos(parsearCSV(csv));
-      })
-      .catch(function(){ cargarGVIZ(); });
+    // Primero cargar datos embebidos inmediatamente
+    procesarDatos(DATOS_EMBEBIDOS);
+    // Luego intentar actualizar desde Apps Script en segundo plano
+    actualizarDesdeAppsScript();
   }
 
-  function cargarGVIZ(){
-    var prev=g('gviz-script'); if(prev) prev.remove();
-    window.google=window.google||{};
-    window.google.visualization=window.google.visualization||{};
-    window.google.visualization.Query=window.google.visualization.Query||{};
-    window.google.visualization.Query.setResponse=function(resp){
-      var table=resp&&resp.table;
-      if(!table||!table.rows||!table.rows.length){
-        mostrarError('Sin datos. Verifica que el Sheet sea público: Archivo → Compartir → Publicar en la web → CSV');
-        return;
+  function actualizarDesdeAppsScript(){
+    var prev = g('apps-script'); if(prev) prev.remove();
+    window.__sst_cb = function(resp){
+      delete window.__sst_cb;
+      if(!resp || resp.status !== 'ok' || !resp.values || resp.values.length < 2) return;
+      var rows = resp.values.slice(1).filter(function(r){
+        return r.some(function(v){ return String(v||'').trim() !== ''; });
+      });
+      if(rows.length > 0){
+        procesarDatos(rows);
+        setText('lastUpdate','Actualizado desde Sheet: '+new Date().toLocaleTimeString('es-CO'));
       }
-      var cols=table.cols,rows=table.rows,datos=[];
-      for(var i=0;i<rows.length;i++){
-        if(!rows[i]||!rows[i].c) continue;
-        var fila=cols.map(function(col,j){
-          var cell=rows[i].c[j];
-          if(!cell||cell.v===null||cell.v===undefined) return'';
-          return cell.f!=null?String(cell.f):String(cell.v);
-        });
-        if(fila.some(function(v){return v.trim()!=='';})) datos.push(fila);
-      }
-      if(datos.length) procesarDatos(datos);
-      else mostrarError('El Sheet no tiene datos en la pestaña "Respuestas de formulario 1".');
     };
-    var s=document.createElement('script');
-    s.id='gviz-script';
-    s.src='https://docs.google.com/spreadsheets/d/1MY_YrZY0KidPGsvbJ2MXC2jYaUMv58VDXql09yDL2j0/gviz/tq?tqx=out:json&sheet='+encodeURIComponent(SHEET_NAME)+'&t='+Date.now();
-    s.onerror=function(){
-      mostrarError('No se pudo conectar. Ve a tu Google Sheet → Archivo → Compartir → Publicar en la web.');
-    };
+    var s = document.createElement('script');
+    s.id  = 'apps-script';
+    s.src = APPS_URL + '?callback=__sst_cb&t=' + Date.now();
     document.head.appendChild(s);
   }
+
+  function cargarGVIZ(){ cargarCSV(); }
 
   // ── EXPONER FUNCIONES GLOBALES ──
   window.cargarDatos = function(){ mostrarCargando(); cargarCSV(); };
