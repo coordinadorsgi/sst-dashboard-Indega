@@ -399,6 +399,7 @@ var App = (function(){
       return;
     }
     orig=datos; poblarFiltros(orig);
+    // Preservar filtros cruzados activos al actualizar datos
     filt=getFiltrado(); render(filt);
     st("lu","Actualizado: "+new Date().toLocaleTimeString("es-CO"));
   }
@@ -412,7 +413,14 @@ var App = (function(){
       delete window.__cb;
       if(!resp||resp.status!=="ok"||!resp.values||resp.values.length<2) return;
       var rows=resp.values.slice(1).filter(function(r){return r.some(function(v){return String(v||"").trim()!=="";});});
-      if(rows.length>0){ procesarDatos(rows); st("lu","Sheet actualizado: "+new Date().toLocaleTimeString("es-CO")); }
+      if(rows.length>0){
+        // Actualizar datos sin resetear filtros cruzados activos
+        orig=rows;
+        poblarFiltros(orig);
+        filt=getFiltrado();
+        render(filt);
+        st("lu","Sheet actualizado: "+new Date().toLocaleTimeString("es-CO"));
+      }
     };
     var s=document.createElement("script");
     s.id="apps-script";
@@ -430,7 +438,26 @@ var App = (function(){
 })();
 
 if(window.ChartDataLabels) Chart.register(window.ChartDataLabels);
-document.addEventListener("DOMContentLoaded",function(){ App.cargar(); setInterval(App.cargar,5*60*1000); });
+document.addEventListener("DOMContentLoaded",function(){
+  App.cargar();
+  // Auto-refresh: solo actualiza datos del fondo, no resetea filtros
+  setInterval(function(){
+    var prev=document.getElementById("apps-script"); if(prev) prev.remove();
+    window.__cb=function(resp){
+      delete window.__cb;
+      if(!resp||resp.status!=="ok"||!resp.values||resp.values.length<2) return;
+      var rows=resp.values.slice(1).filter(function(r){return r.some(function(v){return String(v||"").trim()!=="";});});
+      if(rows.length>0){
+        orig=rows; poblarFiltros(orig); filt=getFiltrado(); render(filt);
+        st("lu","Sheet actualizado: "+new Date().toLocaleTimeString("es-CO"));
+      }
+    };
+    var s=document.createElement("script");
+    s.id="apps-script";
+    s.src="https://script.google.com/macros/s/AKfycbwljuL_L1UVWdzX6p6q56yREYfqmU2F_F71wUh-mm3VL71cCcogGPpuztJVgU5kXYvZlw/exec?callback=__cb&t="+Date.now();
+    document.head.appendChild(s);
+  },5*60*1000);
+});
 </script>
 </body>
 </html>
