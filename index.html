@@ -298,8 +298,25 @@ var App = (function(){
   }
 
   function renderColab(datos){
+    // Usar orig para mostrar TODOS los colaboradores siempre
+    // pero calcular conteos solo con datos filtrados (por otros filtros activos sin colab)
+    var filtSinColab=orig.filter(function(r){
+      var fc=parseFecha(r[C.fecha]);
+      var cat=r[C.cat]||inferirCat(r);
+      var t=g("fTurno").value,a=g("fArea").value,tp=g("fTipo").value,ob=g("fObs").value;
+      var de=g("fDesde").value,ha=g("fHasta").value;
+      return(!t||r[C.turno]===t)&&(!a||r[C.area]===a)&&(!tp||r[C.tipo]===tp)&&(!ob||r[C.obs]===ob)
+        &&(!de||fc>=de)&&(!ha||fc<=ha)
+        &&(!FA.tipo||r[C.tipo]===FA.tipo)
+        &&(!FA.riesgo||(r[C.riesgo]||"").indexOf(FA.riesgo)!==-1)
+        &&(!FA.area||r[C.area]===FA.area)
+        &&(!FA.cat||cat===FA.cat)
+        &&(!FA.turno||r[C.turno]===FA.turno)
+        &&(!FA.obs||r[C.obs]===FA.obs);
+        // Nota: NO filtramos por FA.colab aquí
+    });
     var d={};
-    datos.forEach(function(r){
+    filtSinColab.forEach(function(r){
       var n=(r[C.colab]||"").trim(); if(!n) return;
       if(!d[n]) d[n]={i:0,s:0};
       if(r[C.tipo]==="Acto inseguro") d[n].i++;
@@ -313,15 +330,17 @@ var App = (function(){
       var v=d[n],tot=v.i+v.s;
       var pI=tot?Math.round(v.i/tot*100):0,pS=tot?Math.round(v.s/tot*100):0;
       var sel=activo===n,dim=activo&&activo!==n;
-      h+='<div class="colab-item'+(sel?" sel":dim?" dim":"")+'" data-campo="colab" data-val="'+n.replace(/"/g,"&quot;")+'" onclick="App.toggle(this.dataset.campo,this.dataset.val)">'+
-        '<div style="display:flex;justify-content:space-between;font-size:11px;color:#64748b;margin-bottom:3px">'+
-        '<span style="font-weight:'+(sel?"600":"400")+'">'+n+'</span>'+
-        '<span>'+(v.i?'<span style="color:#dc2626">'+v.i+' inseg.</span>':"")+
+      h+='<div class="colab-item'+(sel?" sel":dim?" dim":"")
+        +'" data-campo="colab" data-val="'+n.replace(/"/g,"&quot;")
+        +'" onclick="App.toggle(this.dataset.campo,this.dataset.val)">'
+        +'<div style="display:flex;justify-content:space-between;font-size:11px;color:#64748b;margin-bottom:3px">'
+        +'<span style="font-weight:'+(sel?"600":"400")+'">'+n+'</span>'
+        +'<span>'+(v.i?'<span style="color:#dc2626">'+v.i+' inseg.</span>':"")+
         (v.i&&v.s?" · ":"")+
         (v.s?'<span style="color:#16a34a">'+v.s+' seg.</span>':"")+
-        '</span></div>'+
-        '<div style="width:100%;height:10px;border-radius:3px;overflow:hidden;display:flex">'+
-        (v.i?'<div style="width:'+pI+'%;background:#dc2626;height:100%"></div>':"")+
+        '</span></div>'
+        +'<div style="width:100%;height:10px;border-radius:3px;overflow:hidden;display:flex">'
+        +(v.i?'<div style="width:'+pI+'%;background:#dc2626;height:100%"></div>':"")+
         (v.s?'<div style="width:'+pS+'%;background:#16a34a;height:100%"></div>':"")+
         '</div></div>';
     });
