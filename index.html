@@ -205,6 +205,25 @@ var App = (function(){
     return Object.keys(a).sort(function(x,y){return a[y]-a[x];}).reduce(function(o,k){o[k]=a[k];return o;},{});
   }
 
+  function getFiltradoSin(campo){
+    // Igual que getFiltrado pero ignorando FA[campo]
+    var t=g("fTurno").value,a=g("fArea").value,tp=g("fTipo").value,ob=g("fObs").value;
+    var de=g("fDesde").value,ha=g("fHasta").value;
+    return orig.filter(function(r){
+      var fc=parseFecha(r[C.fecha]);
+      var cat=r[C.cat]||inferirCat(r);
+      return(!t||r[C.turno]===t)&&(!a||r[C.area]===a)&&(!tp||r[C.tipo]===tp)&&(!ob||r[C.obs]===ob)
+        &&(!de||fc>=de)&&(!ha||fc<=ha)
+        &&(campo==="tipo"   ||!FA.tipo  ||r[C.tipo]===FA.tipo)
+        &&(campo==="riesgo" ||!FA.riesgo||(r[C.riesgo]||"").indexOf(FA.riesgo)!==-1)
+        &&(campo==="area"   ||!FA.area  ||r[C.area]===FA.area)
+        &&(campo==="cat"    ||!FA.cat   ||(r[C.cat]||inferirCat(r))===FA.cat)
+        &&(campo==="turno"  ||!FA.turno ||r[C.turno]===FA.turno)
+        &&(campo==="obs"    ||!FA.obs   ||r[C.obs]===FA.obs)
+        &&(campo==="colab"  ||!FA.colab ||r[C.colab]===FA.colab);
+    });
+  }
+
   function getFiltrado(){
     var t=g("fTurno").value,a=g("fArea").value,tp=g("fTipo").value,ob=g("fObs").value;
     var de=g("fDesde").value,ha=g("fHasta").value;
@@ -298,25 +317,8 @@ var App = (function(){
   }
 
   function renderColab(datos){
-    // Usar orig para mostrar TODOS los colaboradores siempre
-    // pero calcular conteos solo con datos filtrados (por otros filtros activos sin colab)
-    var filtSinColab=orig.filter(function(r){
-      var fc=parseFecha(r[C.fecha]);
-      var cat=r[C.cat]||inferirCat(r);
-      var t=g("fTurno").value,a=g("fArea").value,tp=g("fTipo").value,ob=g("fObs").value;
-      var de=g("fDesde").value,ha=g("fHasta").value;
-      return(!t||r[C.turno]===t)&&(!a||r[C.area]===a)&&(!tp||r[C.tipo]===tp)&&(!ob||r[C.obs]===ob)
-        &&(!de||fc>=de)&&(!ha||fc<=ha)
-        &&(!FA.tipo||r[C.tipo]===FA.tipo)
-        &&(!FA.riesgo||(r[C.riesgo]||"").indexOf(FA.riesgo)!==-1)
-        &&(!FA.area||r[C.area]===FA.area)
-        &&(!FA.cat||cat===FA.cat)
-        &&(!FA.turno||r[C.turno]===FA.turno)
-        &&(!FA.obs||r[C.obs]===FA.obs);
-        // Nota: NO filtramos por FA.colab aquí
-    });
     var d={};
-    filtSinColab.forEach(function(r){
+    datos.forEach(function(r){
       var n=(r[C.colab]||"").trim(); if(!n) return;
       if(!d[n]) d[n]={i:0,s:0};
       if(r[C.tipo]==="Acto inseguro") d[n].i++;
@@ -392,23 +394,31 @@ var App = (function(){
     st("kSp",tot?Math.round(seg/tot*100)+"%":"—");
     st("kIp",tot?Math.round(inseg/tot*100)+"%":"—");
 
-    renderDona("cTipo","legTipo","tipo",["Acto seguro","Acto inseguro"],[seg,inseg],["#16a34a","#dc2626"]);
-    var ro=contarPor(datos,C.riesgo),rk=Object.keys(ro);
+    // Cada gráfico usa datos SIN filtrar por su propio campo para mantener todos los valores visibles
+    var dTipo=getFiltradoSin("tipo");
+    var segT=dTipo.filter(function(r){return r[C.tipo]==="Acto seguro";}).length;
+    var insT=dTipo.filter(function(r){return r[C.tipo]==="Acto inseguro";}).length;
+    renderDona("cTipo","legTipo","tipo",["Acto seguro","Acto inseguro"],[segT,insT],["#16a34a","#dc2626"]);
+
+    var dRiesgo=getFiltradoSin("riesgo");
+    var ro=contarPor(dRiesgo,C.riesgo),rk=Object.keys(ro);
     renderDona("cRiesgo","legRiesgo","riesgo",rk,rk.map(function(k){return ro[k];}),
       rk.map(function(k){var l=k.toLowerCase();return l.indexOf("grave")!==-1?"#dc2626":l.indexOf("medio")!==-1||l.indexOf("moderado")!==-1?"#d97706":l.indexOf("leve")!==-1?"#16a34a":"#94a3b8";}));
 
-    renderBars("bArea",contarPor(datos,C.area),"area","#2563eb");
-    var cat={};
-    datos.forEach(function(r){var c=r[C.cat]||inferirCat(r);cat[c]=(cat[c]||0)+1;});
+    renderBars("bArea",contarPor(getFiltradoSin("area"),C.area),"area","#2563eb");
+
+    var dCat=getFiltradoSin("cat"),cat={};
+    dCat.forEach(function(r){var c=r[C.cat]||inferirCat(r);cat[c]=(cat[c]||0)+1;});
     var catS=Object.keys(cat).sort(function(a,b){return cat[b]-cat[a];}).reduce(function(o,k){o[k]=cat[k];return o;},{});
     renderBars("bCat",catS,"cat","#3b82f6");
 
-    var to=contarPor(datos,C.turno),tk=Object.keys(to);
+    var dTurno=getFiltradoSin("turno"),to=contarPor(dTurno,C.turno),tk=Object.keys(to);
     renderBarChart("cTurno","turno",tk,tk.map(function(k){return to[k];}));
-    var oo=contarPor(datos,C.obs),ok=Object.keys(oo);
+
+    var dObs=getFiltradoSin("obs"),oo=contarPor(dObs,C.obs),ok=Object.keys(oo);
     renderBarChart("cObservador","obs",ok,ok.map(function(k){return oo[k];}));
 
-    renderColab(datos);
+    renderColab(getFiltradoSin("colab"));
     renderTabla(datos);
   }
 
