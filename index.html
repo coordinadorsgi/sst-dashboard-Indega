@@ -424,7 +424,7 @@ var App = (function(){
     renderBarChart("cObservador","obs",ok,ok.map(function(k){return oo[k];}));
 
     renderColab(getFiltradoSin("colab"));
-    renderTabla(datos);
+    renderTabla(getFiltrado());
   }
 
   function procesarDatos(datos){
