@@ -26,7 +26,7 @@ body{font-family:'DM Sans',sans-serif;background:#f0f2f5;color:#0f1923;min-heigh
 .clear-cross{display:none;align-items:center;gap:6px;background:#fef3c7;color:#92400e;border:none;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
 .clear-cross.on{display:flex}
 .main{padding:0 2rem 2rem}
-.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px}
 .kpi-card{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.07);padding:16px}
 .kpi-label{font-size:11px;color:#64748b;font-weight:500;margin-bottom:8px;display:flex;align-items:center;gap:5px}
 .kpi-label .dot{width:6px;height:6px;border-radius:50%}
@@ -86,9 +86,10 @@ tbody tr:hover td{background:#f8fafc}
   <select id="fTurno" onchange="App.filtrar()"><option value="">Todos los turnos</option></select>
   <select id="fArea"  onchange="App.filtrar()"><option value="">Todas las áreas</option></select>
   <select id="fTipo"  onchange="App.filtrar()">
-    <option value="">Acto seguro e inseguro</option>
+    <option value="">Todos los tipos</option>
     <option value="Acto inseguro">Solo actos inseguros</option>
     <option value="Acto seguro">Solo actos seguros</option>
+    <option value="Condición insegura">Solo condiciones inseguras</option>
   </select>
   <select id="fObs"  onchange="App.filtrar()"><option value="">Todos los observadores</option></select>
   <label>Desde</label><input type="date" id="fDesde" onchange="App.filtrar()">
@@ -103,6 +104,7 @@ tbody tr:hover td{background:#f8fafc}
     <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#2563eb"></span>Total observaciones</div><div class="kpi-value" id="kT">—</div><span class="kpi-pct blue">registros</span></div>
     <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#16a34a"></span>Actos seguros</div><div class="kpi-value" id="kS">—</div><span class="kpi-pct green" id="kSp">—</span></div>
     <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#dc2626"></span>Actos inseguros</div><div class="kpi-value" id="kI">—</div><span class="kpi-pct red" id="kIp">—</span></div>
+    <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#7c3aed"></span>Condiciones inseguras</div><div class="kpi-value" id="kCI">—</div><span class="kpi-pct" style="background:#ede9fe;color:#7c3aed" id="kCIp">—</span></div>
     <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#d97706"></span>Riesgo grave</div><div class="kpi-value" id="kG">—</div><span class="kpi-pct amber">requiere atención</span></div>
     <div class="kpi-card"><div class="kpi-label"><span class="dot" style="background:#64748b"></span>Trabajadores obs.</div><div class="kpi-value" id="kW">—</div><span class="kpi-pct gray">cobertura total</span></div>
   </div>
@@ -382,17 +384,20 @@ var App = (function(){
   }
 
   function render(datos){
-    var tot=datos.length,seg=0,inseg=0,grav=0,trab=0;
+    var tot=datos.length,seg=0,inseg=0,cond=0,grav=0,trab=0;
     datos.forEach(function(r){
-      if(r[C.tipo]==="Acto seguro") seg++;
-      else if(r[C.tipo]==="Acto inseguro") inseg++;
+      var tipo=(r[C.tipo]||"");
+      if(tipo==="Acto seguro") seg++;
+      else if(tipo==="Acto inseguro") inseg++;
+      else if(tipo.indexOf("Condici")!==-1) cond++;
       if((r[C.riesgo]||"").indexOf("Grave")!==-1) grav++;
       trab+=parseFloat(r[C.trab])||0;
     });
     st("badge",tot+" registros");
-    st("kT",tot); st("kS",seg); st("kI",inseg); st("kG",grav); st("kW",trab);
+    st("kT",tot); st("kS",seg); st("kI",inseg); st("kCI",cond); st("kG",grav); st("kW",trab);
     st("kSp",tot?Math.round(seg/tot*100)+"%":"—");
     st("kIp",tot?Math.round(inseg/tot*100)+"%":"—");
+    st("kCIp",tot?Math.round(cond/tot*100)+"%":"—");
 
     // Cada gráfico usa datos SIN filtrar por su propio campo para mantener todos los valores visibles
     var dTipo=getFiltradoSin("tipo");
